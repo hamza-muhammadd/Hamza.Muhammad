@@ -135,6 +135,9 @@ function glassWord(){const w=$('.gx-word');if(!w)return;const ws=(w.dataset.word
   const show=i=>{const old=cur;cur=make(ws[i]);cur.classList.add('in');w.append(cur);if(old){old.classList.remove('in');old.classList.add('out');setTimeout(()=>old.remove(),1200)}dots.forEach((d,k)=>d.classList.toggle('on',k===i))};
   dots.forEach((d,k)=>d.classList.toggle('on',k===0));if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
   setInterval(()=>{if(document.hidden)return;n=(n+1)%ws.length;show(n)},3000)}
+function heroGuard(){const ph=$('#photo');if(!ph)return;const st=ph.closest('.stage'),chain=['assets/hero-cut.webp','assets/profile.jpg'];let k=0;
+  const next=()=>{if(k>=chain.length){ph.style.visibility='hidden';return}const u=chain[k++];console.warn('Hero photo could not load, trying',u);if(st&&u.endsWith('.jpg')){st.classList.remove('cut');st.classList.add('framed')}ph.removeAttribute('srcset');ph.src=u};
+  ph.addEventListener('error',next);if(ph.complete&&ph.naturalWidth===0&&ph.getAttribute('src'))next()}
 async function boot(){
   let d={...D},ls=DL;
   if(C.url&&C.anonKey){try{const[s,l]=await Promise.all([get('site_settings?select=data&id=eq.1'),get('social_links?select=platform,url,label&enabled=eq.true&order=sort.asc')]);
@@ -147,7 +150,7 @@ async function boot(){
   $$('[data-k]').forEach(e=>{if(d[e.dataset.k]!=null)e.textContent=d[e.dataset.k]});
   $$('[data-p]').forEach(e=>{e.textContent='';String(d[e.dataset.p]).split(/\n\s*\n/).forEach(t=>e.append(mk('p','',t.trim())))});
   const ph=$('#photo');if(ph){const u=ver(d.photo,d.photo_v);if(ph.getAttribute('src')!==u)ph.src=u;const st=ph.closest('.stage');if(st){const c=d.photo_cut!==false&&d.photo_cut!=='false'&&d.photo_cut!==0;st.classList.toggle('cut',c);st.classList.toggle('framed',!c)}}
-  favicons(d);glassWord();
+  favicons(d);glassWord();heroGuard();
   const gl=$('#glance');if(gl)L(d.glance).forEach(a=>{const li=mk('li');li.append(mk('b','',a[0]),mk('span','',a[1]||''));gl.append(li)});
   const va=$('#values');if(va)L(d.values).forEach(a=>{const c=mk('div','card rv');c.append(mk('h3','',a[0]),mk('p','',a[1]||''));va.append(c)});
   const it=$('#interests');if(it)L(d.interests).forEach(a=>{const c=mk('div','card rv');c.append(mk('p','eyebrow',a[0]),mk('h2','',a[1]||''));const t=mk('div','tags');(a[2]||'').split(',').map(x=>x.trim()).filter(Boolean).forEach(x=>t.append(mk('span','',x)));c.append(t);it.append(c)});
