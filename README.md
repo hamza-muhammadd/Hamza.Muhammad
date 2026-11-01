@@ -65,6 +65,6 @@ Optional: `SUPABASE_URL`, `SUPABASE_ANON_KEY` (the public values from config.js 
 
 ## Changing the share picture from the admin
 
-Admin > Social Sharing & SEO > Upload new image. The picture is resized in the browser to 1200 x 630 JPEG (under 300 KB), previewed exactly, and saved when you press Save. It goes to Cloudinary when the env vars are set, otherwise to the Supabase `site` storage bucket, so it works either way. The default image is `assets/social-hero-5.jpg` (the hero composition).
+Admin > Social Sharing & SEO > Upload new image. The picture is resized in the browser to 1200 x 630 JPEG (under 300 KB), previewed exactly, and saved when you press Save. It goes to Cloudinary when the env vars are set, otherwise to the Supabase `site` storage bucket, so it works either way. The default image is `assets/social-hero-4.jpg` (the hero composition).
 
 After changing it, refresh the platform caches: Facebook Sharing Debugger (Scrape Again); WhatsApp usually updates after a while or when the link is shared with a new `?v=2`.

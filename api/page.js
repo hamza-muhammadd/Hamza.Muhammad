@@ -42,7 +42,7 @@ function build(req, page, s, post) {
   const name = s.seo_site_name || s.name || 'Hamza Muhammad';
   let title = s.seo_title || name;
   let desc = s.seo_description || s.tagline || 'Hamza Muhammad is an educator and lifelong learner exploring faith, education, and technology through writing and projects.';
-  let img = /^https?:\/\//.test(s.social_image_url || '') ? s.social_image_url : base + '/assets/social-hero-5.jpg';
+  let img = /^https?:\/\//.test(s.social_image_url || '') ? s.social_image_url : base + '/assets/social-hero-4.jpg';
   let canon = base + (page === 'index' ? '/' : '/' + page + '.html');
   let type = 'website';
   if (post) {
@@ -75,7 +75,9 @@ function build(req, page, s, post) {
     '<meta property="og:description" content="' + esc(desc) + '">',
     '<meta property="og:url" content="' + esc(canon) + '">',
     '<meta property="og:image" content="' + esc(img) + '">',
+    '<meta property="og:image:secure_url" content="' + esc(img) + '">',
     '<meta property="og:image:width" content="' + w + '"><meta property="og:image:height" content="' + h + '">',
+    '<meta property="og:image:alt" content="' + esc(title) + '">',
     '<meta name="twitter:card" content="summary_large_image">',
     '<meta name="twitter:title" content="' + esc(title) + '">',
     '<meta name="twitter:description" content="' + esc(desc) + '">',
@@ -116,8 +118,7 @@ module.exports = async (req, res) => {
     .replace(/<meta\s+name="description"[^>]*>/i, '')
     .replace(/<meta\s+(?:property="og:|name="twitter:)[^>]*>/gi, '')
     .replace(/<link\s+rel="canonical"[^>]*>/i, '')
-    .replace(/(<meta\s+charset="utf-8">)/i, '$1\n' + tags.replace(/\$/g, '$$$$'))
-    ;
+    .replace('</head>', tags + '\n</head>');
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   // Browsers always revalidate; the CDN keeps a page for at most 30 s, so a new photo/favicon shows almost immediately.
