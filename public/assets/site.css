@@ -630,12 +630,14 @@ nav a.cta.on{background:var(--ds-primary-bg)}
  22%,100%{background:rgba(220,232,217,.62);color:#53605a;transform:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}}
 @media(prefers-reduced-motion:reduce){.btn.p::after,nav a.cta::after,.tile.t-cta::after{animation:none}}
 
-/* ===== Phone stability: the page can never pan sideways and the header stays put ===== */
-html{overflow-x:hidden;max-width:100%;overscroll-behavior-x:none;-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{overflow-x:hidden;overflow-x:clip;max-width:100%;overflow-wrap:anywhere;position:relative}
-img,video,iframe,svg,canvas{max-width:100%}img{height:auto}
-pre,code,kbd,samp{max-width:100%;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
-table{display:block;max-width:100%;overflow-x:auto}
-.wrap,main,section,article,header,footer,.card,.tile,.pm-sheet{min-width:0;max-width:100%}
-nav{max-width:calc(100% - 14px)}
-@media(max-width:820px){.hero,.bento,.bgrid,.pjg,.grid2,.grid3{min-width:0}.hero>*,.bento>*,.bgrid>*,.pjg>*{min-width:0}}
+/* ===== Phone stability (phones/tablets only; desktop layout is untouched) ===== */
+@media(max-width:820px){
+ html{overflow-x:hidden;max-width:100%;overscroll-behavior-x:none;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+ body{overflow-x:hidden;overflow-x:clip;max-width:100%;overflow-wrap:anywhere;position:relative}
+ img,video,iframe,svg,canvas{max-width:100%}img{height:auto}
+ pre,code,kbd,samp{max-width:100%;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+ table{display:block;max-width:100%;overflow-x:auto}
+ .wrap,main,section,article,header,footer,.card,.tile,.pm-sheet{min-width:0;max-width:100%}
+ nav{max-width:calc(100% - 14px)}
+ .hero,.bento,.bgrid,.pjg,.grid2,.grid3{min-width:0}.hero>*,.bento>*,.bgrid>*,.pjg>*{min-width:0}
+}
