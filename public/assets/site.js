@@ -139,6 +139,10 @@ function glassWord(){const w=$('.gx-word');if(!w)return;const ws=(w.dataset.word
 function heroGuard(){const ph=$('#photo');if(!ph)return;const st=ph.closest('.stage'),chain=['assets/hero-cut.webp','assets/profile.jpg'];let k=0;
   const next=()=>{if(k>=chain.length){ph.style.visibility='hidden';return}const u=chain[k++];console.warn('Hero photo could not load, trying',u);if(st&&u.endsWith('.jpg')){st.classList.remove('cut');st.classList.add('framed')}ph.removeAttribute('srcset');ph.src=u};
   ph.addEventListener('error',next);if(ph.complete&&ph.naturalWidth===0&&ph.getAttribute('src'))next()}
+function heroReady(){const st=$('.hero .stage');if(!st)return;const ph=$('#photo');let done=false;
+  const go=()=>{if(done)return;done=true;requestAnimationFrame(()=>st.classList.add('rdy'))};setTimeout(go,3500);if(!ph)return go();
+  const dec=()=>{ph.decode?ph.decode().then(go,go):go()};
+  if(ph.complete&&ph.naturalWidth)dec();else ph.addEventListener('load',dec,{once:true})}
 async function boot(){
   let d={...D},ls=DL;
   if(C.url&&C.anonKey){try{const[s,l]=await Promise.all([get('site_settings?select=data&id=eq.1'),get('social_links?select=platform,url,label&enabled=eq.true&order=sort.asc')]);
@@ -178,7 +182,7 @@ async function boot(){
   const count=e=>{const to=+e.dataset.to||0,t0=performance.now(),du=1100;const f=t=>{const k=Math.min(1,(t-t0)/du);e.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)};
   const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');x.target.querySelectorAll('[data-to]').forEach(count);if(x.target.dataset.to)count(x.target);const t=x.target;setTimeout(()=>{t.classList.add('done');t.style.removeProperty('--d')},1700);io.unobserve(t)}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});$$('.rv').forEach(n=>io.observe(n));
 }
-boot();
+heroReady();boot();
 const fm=$('#f');if(fm)fm.addEventListener('submit',async e=>{
   e.preventDefault();const m=$('#msg'),b=fm.querySelector('button');if(fm.website.value)return;
   if(!fm.checkValidity()){m.className='err';m.textContent='Please add your name, a valid email and a message of at least 5 characters.';return}

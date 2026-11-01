@@ -521,7 +521,7 @@ footer{padding:20px 0 28px;font-size:.78rem;gap:8px}footer a{margin-left:10px}
  background:linear-gradient(155deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.2) 55%,rgba(255,255,255,.34) 100%);
  -webkit-backdrop-filter:blur(20px) saturate(170%);backdrop-filter:blur(20px) saturate(170%);
  border:1px solid rgba(255,255,255,.78);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -18px 36px -22px rgba(255,255,255,.55),0 40px 60px -30px rgba(29,37,44,.5);
- animation:gxin 1.1s var(--sp) .7s both,gxfloat 8s ease-in-out 2s infinite}
+ animation:gxin 1.1s var(--sp) .7s both}
 @keyframes gxin{from{opacity:0;transform:translate(-26px,30px) scale(.92)}to{opacity:1;transform:none}}
 @keyframes gxfloat{50%{translate:0 -9px}}
 .hero .gx::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 70% at 0% 0%,rgba(255,255,255,.55),transparent 55%);pointer-events:none}
@@ -641,3 +641,24 @@ nav a.cta.on{background:var(--ds-primary-bg)}
  nav{max-width:calc(100% - 14px)}
  .hero,.bento,.bgrid,.pjg,.grid2,.grid3{min-width:0}.hero>*,.bento>*,.bgrid>*,.pjg>*{min-width:0}
 }
+
+/* ===== Smooth hero: everything appears together, only GPU-friendly properties animate ===== */
+/* wait for the photo, then circle + portrait + glass enter as one scene */
+.js .hero .stage:not(.rdy)::before,.js .hero .stage:not(.rdy) #photo,.js .hero .stage:not(.rdy) .gx{animation:none!important;opacity:0;visibility:hidden}
+.hero .stage::before{animation:cin .95s var(--out) both;will-change:transform,opacity}
+.hero .stage img#photo{filter:none;animation:hin .95s var(--out) .1s both;will-change:transform,opacity;transform:translateZ(0)}
+.hero .gx{animation:gxin .95s var(--out) .3s both;will-change:transform,opacity}
+@keyframes cin{from{opacity:0;transform:scale(.86)}to{opacity:1;transform:none}}
+@keyframes hin{from{opacity:0;transform:translate3d(0,28px,0) scale(.985)}to{opacity:1;transform:none}}
+@keyframes gxin{from{opacity:0;transform:translate3d(-22px,26px,0) scale(.94)}to{opacity:1;transform:none}}
+/* cheaper everywhere: no animated blur filters, no giant blurred layers */
+@keyframes up{from{opacity:0;transform:translate3d(0,22px,0)}}
+.hero .w{filter:none;transform:translate3d(0,.5em,0)}
+@keyframes word{from{opacity:0;transform:translate3d(0,.5em,0)}to{opacity:1;transform:none}}
+.rv,.rv[data-a=blur]{filter:none!important}
+.rv.in{filter:none}
+.aur i{filter:none;will-change:transform;background:radial-gradient(closest-side,var(--c,#fff),transparent 100%)!important}
+.aur i:nth-child(1){--c:#fff}.aur i:nth-child(2){--c:#c9d9e2}.aur i:nth-child(3){--c:#e4ebe0}
+@keyframes lin{from{opacity:0;transform:translate3d(0,60%,0) scale(.85)}to{opacity:1;transform:none}}
+@keyframes lout{to{opacity:0;transform:translate3d(0,-55%,0) scale(1.05)}}
+.gx .gxw i{will-change:transform,opacity}
