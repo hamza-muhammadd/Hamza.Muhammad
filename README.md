@@ -61,3 +61,10 @@ Optional: `SUPABASE_URL`, `SUPABASE_ANON_KEY` (the public values from config.js 
 
 - **Design tokens:** all colours, glass surfaces, shadows, radii and button styles live in one block at the end of `public/assets/site.css` (`--ds-*` variables, section "DESIGN SYSTEM") and a matching block in `public/admin.html`. Change a token and the whole site follows. Primary buttons are slate-blue glass, secondary ones frosted white with a sage tint. There are no solid black buttons anywhere (public site and admin).
 - **Copy:** the site's built-in wording was rewritten (Quranic studies, the Arabic language, Islamic knowledge used where each fits). If you had already saved your own texts in the admin, they stay as you wrote them. To also refresh texts that still hold the OLD built-in wording, run `migration_8_copy_refresh.sql` once in the Supabase SQL editor (it never touches anything you edited).
+
+
+## Changing the share picture from the admin
+
+Admin > Social Sharing & SEO > Upload new image. The picture is resized in the browser to 1200 x 630 JPEG (under 300 KB), previewed exactly, and saved when you press Save. It goes to Cloudinary when the env vars are set, otherwise to the Supabase `site` storage bucket, so it works either way. The default image is `assets/social-hero.jpg` (the hero composition).
+
+After changing it, refresh the platform caches: Facebook Sharing Debugger (Scrape Again); WhatsApp usually updates after a while or when the link is shared with a new `?v=2`.
