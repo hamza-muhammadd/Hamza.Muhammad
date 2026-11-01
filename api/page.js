@@ -42,7 +42,7 @@ function build(req, page, s, post) {
   const name = s.seo_site_name || s.name || 'Hamza Muhammad';
   let title = s.seo_title || name;
   let desc = s.seo_description || s.tagline || 'Hamza Muhammad is an educator and lifelong learner exploring faith, education, and technology through writing and projects.';
-  let img = /^https?:\/\//.test(s.social_image_url || '') ? s.social_image_url : base + '/assets/social-hero.jpg';
+  let img = /^https?:\/\//.test(s.social_image_url || '') ? s.social_image_url : base + '/assets/social-hero-2.jpg';
   let canon = base + (page === 'index' ? '/' : '/' + page + '.html');
   let type = 'website';
   if (post) {

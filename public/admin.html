@@ -435,7 +435,7 @@ async function loadDash(){const[p,l,m,f,pj]=await Promise.all([sb.from('posts').
   const S=[['Posts',p.data.length],['Published',p.data.filter(x=>x.status==='published').length],['Drafts',p.data.filter(x=>x.status!=='published').length],['Projects',pj.error?'–':pj.data.length],['Accounts shown',l.data.filter(x=>x.enabled).length],['Messages',m.data.length],['Unread',m.data.filter(x=>!x.is_read).length],['Photos',f?f.length:'–']];
   const b=$('#stats');b.textContent='';S.forEach(([k,v])=>{const s=el('div','stat');s.append(el('b','',v),el('span','',k));b.append(s)})}
 /* ---------- Social Sharing & SEO (Cloudinary signed upload) ---------- */
-const SS_DEFAULT='assets/social-hero.jpg';let ssFile=null,ssURL=null,ssDims=null,ssBlob=null,ssImg=null;
+const SS_DEFAULT='assets/social-hero-2.jpg';let ssFile=null,ssURL=null,ssDims=null,ssBlob=null,ssImg=null;
 const ssT={fill:'c_fill,g_auto,w_1200,h_630,q_auto:good,f_jpg',fit:'c_pad,b_blurred:400:15,w_1200,h_630,q_auto:good,f_jpg'};
 const ssActive=()=>/^https?:\/\//.test(data.social_image_url||'')?data.social_image_url:'';
 function ssPrev(){const u=ssActive()||SS_DEFAULT,img=$('#ssc img');$('#ssc img').src=u;$('#scd').textContent=($('#ssw').value||location.host).replace(/^https?:\/\//,'').replace(/\/$/,'');
