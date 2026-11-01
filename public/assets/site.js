@@ -1,7 +1,7 @@
 (()=>{
 const C=window.SITE_CONFIG||{},H={apikey:C.anonKey,Authorization:'Bearer '+C.anonKey},$=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const D={name:'Hamza Muhammad',mark:'H',eyebrow:'Educator · Learner · Builder',h1:'Learning with purpose.',h1b:'Building what matters.',
-intro:'I care about Qur’an, Arabic, education, technology, and building useful things that serve people.',
+intro:'I care about religion, education, technology, and building useful things that serve people.',
 about_sub:'A work in progress, guided by learning, faith, curiosity, and service.',about_title:'Build a life that is useful and meaningful.',
 about:'I’m Hamza Muhammad, an educator and lifelong learner interested in Qur’anic studies, Arabic, teaching, technology, entrepreneurship, and personal development.\n\nI’m interested in the space between knowledge and action: understanding an idea, recalling it, applying it in real situations, measuring the result, and improving the process.\n\nMy goal is to keep learning, build useful projects, and share what I discover in ways that can benefit other people.',
 glance:'Education | Teaching and continuous learning\nFaith | Qur’an, Arabic, and daily practice\nBuilding | Digital products and software ideas\nCuriosity | Reading, languages, and travel',
@@ -131,9 +131,10 @@ function favicons(d){const m=[['16',d.favicon_16],['32',d.favicon_32],['48',d.fa
   m.forEach(([z,u])=>{if(/^https?:\/\//.test(u||'')){const l=mk('link');l.rel='icon';l.type='image/png';l.sizes=z+'x'+z;l.href=u;document.head.append(l)}});
   if(/^https?:\/\//.test(a||'')){const l=mk('link');l.rel='apple-touch-icon';l.sizes='180x180';l.href=a;document.head.append(l)}}
 function glassWord(){const w=$('.gx-word');if(!w)return;const ws=(w.dataset.words||'').split(',').map(x=>x.trim()).filter(Boolean);if(!ws.length)return;const dots=$$('.gx-dots i');let n=0,cur=w.querySelector('.gxw');
-  const make=t=>{const s=mk('span','gxw');s.style.fontSize=Math.min(36,97/(t.length*.58))+'cqw';[...t].forEach((c,i)=>{const l=mk('i','',c);l.style.setProperty('--k',i);s.append(l)});return s};
-  const show=i=>{const old=cur;cur=make(ws[i]);cur.classList.add('in');w.append(cur);if(old){old.classList.remove('in');old.classList.add('out');setTimeout(()=>old.remove(),1200)}dots.forEach((d,k)=>d.classList.toggle('on',k===i))};
-  dots.forEach((d,k)=>d.classList.toggle('on',k===0));if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  const fit=s=>{s.style.fontSize='34cqw';const av=w.clientWidth*.82,wd=s.offsetWidth;if(wd>av)s.style.fontSize=(34*av/wd).toFixed(2)+'cqw'};
+  const make=t=>{const s=mk('span','gxw');[...t].forEach((c,i)=>{const l=mk('i','',c);l.style.setProperty('--k',i);s.append(l)});return s};
+  const show=i=>{const old=cur;cur=make(ws[i]);cur.classList.add('in');w.append(cur);fit(cur);if(old){old.classList.remove('in');old.classList.add('out');setTimeout(()=>old.remove(),1200)}dots.forEach((d,k)=>d.classList.toggle('on',k===i))};
+  dots.forEach((d,k)=>d.classList.toggle('on',k===0));if(cur)fit(cur);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>cur&&fit(cur));let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>cur&&fit(cur),150)});if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
   setInterval(()=>{if(document.hidden)return;n=(n+1)%ws.length;show(n)},3000)}
 function heroGuard(){const ph=$('#photo');if(!ph)return;const st=ph.closest('.stage'),chain=['assets/hero-cut.webp','assets/profile.jpg'];let k=0;
   const next=()=>{if(k>=chain.length){ph.style.visibility='hidden';return}const u=chain[k++];console.warn('Hero photo could not load, trying',u);if(st&&u.endsWith('.jpg')){st.classList.remove('cut');st.classList.add('framed')}ph.removeAttribute('srcset');ph.src=u};
@@ -145,7 +146,10 @@ async function boot(){
   if(/^#[0-9a-f]{6}$/i.test(d.accent||'')&&d.accent.toLowerCase()!=='#8c7a52')document.documentElement.style.setProperty('--acc',d.accent);
   const pn=(PG.find(p=>p[0]===here)||PG[0])[1];document.title=(pn==='Home'?d.name:pn+' · '+d.name);
   const nav=$('#nav');if(nav){const n=mk('nav');n.setAttribute('aria-label','Main');const cur=here==='post.html'?'writing.html':here;
-    PG.forEach((p,i)=>{const a=mk('a','l'+(p[0]===cur?' on':'')+(i===PG.length-1?' cta':''),p[1]);a.href=p[0];if(p[0]===cur)a.setAttribute('aria-current','page');n.append(a)});nav.replaceWith(n);const on=n.querySelector('.on');if(on)requestAnimationFrame(()=>{n.scrollLeft=on.offsetLeft-n.clientWidth/2+on.offsetWidth/2})}
+    const lst=mk('div','nv-l'),tg=mk('button','nv-t');tg.type='button';tg.setAttribute('aria-expanded','false');tg.setAttribute('aria-label','Menu');const tl=mk('span','',(PG.find(p=>p[0]===cur)||PG[0])[1]),ti=mk('i');ti.append(mk('b'),mk('b'));tg.append(tl,ti);
+    PG.forEach((p,i)=>{const a=mk('a','l'+(p[0]===cur?' on':'')+(i===PG.length-1?' cta':''),p[1]);a.href=p[0];if(p[0]===cur)a.setAttribute('aria-current','page');lst.append(a)});n.append(tg,lst);nav.replaceWith(n);
+    const so=o=>{n.classList.toggle('open',o);tg.setAttribute('aria-expanded',String(o))};tg.onclick=e=>{e.stopPropagation();so(!n.classList.contains('open'))};
+    document.addEventListener('click',e=>{if(!n.contains(e.target))so(false)});addEventListener('scroll',()=>{if(n.classList.contains('open'))so(false)},{passive:true});const on=n.querySelector('.on');if(on)requestAnimationFrame(()=>{n.scrollLeft=on.offsetLeft-n.clientWidth/2+on.offsetWidth/2})}
   const f=$('#foot');if(f){const fo=mk('footer');fo.append(mk('span','','© '+new Date().getFullYear()+' '+d.name),mk('span','',d.footer));const r=mk('span');PG.slice(3).forEach(p=>{const a=mk('a','',p[1]);a.href=p[0];r.append(a)});fo.append(r);f.replaceWith(fo)}
   $$('[data-k]').forEach(e=>{if(d[e.dataset.k]!=null)e.textContent=d[e.dataset.k]});
   $$('[data-p]').forEach(e=>{e.textContent='';String(d[e.dataset.p]).split(/\n\s*\n/).forEach(t=>e.append(mk('p','',t.trim())))});
