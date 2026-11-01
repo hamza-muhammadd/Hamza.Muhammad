@@ -45,7 +45,7 @@ module.exports = async (req, res) => {
   send(200, {
     cloud_name: cloud,
     api_key: key,
-    upload_url: 'https://api.cloudinary.com/v1_1/' + cloud + '/image/upload',
+    upload_url: 'https://res.cloudinary.com/ghibfskd/image/upload/f_auto,q_auto/Screenshot_2026-11-01_201318/' + cloud + '/image/upload',
     params,
     signature: sign(params, secret)
   });
