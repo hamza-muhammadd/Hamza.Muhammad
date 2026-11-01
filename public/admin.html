@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Admin · Hamza Muhammad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f1ec;--side:#fbfaf8;--pane:#fefdfb;--ink:#1f262b;--mute:#6b7178;--line:rgba(31,38,43,.09);--acc:#46687a;--accd:#365463;--sel:#e6edf0;--field:#efeeea;--out:#dbe6eb;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box}body{margin:0;font:400 .95rem/1.55 Inter,-apple-system,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+.hide{display:none!important}button{font:inherit;cursor:pointer}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}}@keyframes fade{from{opacity:0}}@keyframes pop{from{opacity:0;transform:scale(.96) translateY(8px)}}
+input,textarea,select{font:inherit;color:var(--ink);background:var(--field);border:1px solid transparent;border-radius:12px;padding:10px 13px;width:100%;transition:border-color .2s,background .2s,box-shadow .2s}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--acc);background:#fff;box-shadow:0 0 0 4px rgba(70,104,122,.16)}input[type=checkbox]{width:auto}input[type=color]{padding:2px;height:42px;width:90px}
+label{display:grid;gap:5px;font-size:.78rem;font-weight:600;color:var(--mute);margin-bottom:14px}
+.btn{border:0;border-radius:999px;padding:9px 18px;background:var(--field);color:var(--ink);font-weight:600;transition:transform .2s var(--ease),background .2s,box-shadow .2s}.btn:hover{background:var(--sel);transform:translateY(-1px)}.btn:active{transform:scale(.96)}
+.btn.p{background:var(--ink);color:var(--pane);box-shadow:0 10px 20px -12px rgba(31,38,43,.7)}.btn.p:hover{background:var(--acc)}.btn.d{color:#a6432f}.btn:disabled{opacity:.55;cursor:wait}.btn.s{padding:6px 13px;font-size:.8rem}
+.login{max-width:380px;margin:12vh auto;background:var(--pane);padding:34px;border-radius:26px;box-shadow:0 30px 60px -30px rgba(31,38,43,.35);animation:pop .4s var(--ease)}.login h1{margin:0 0 18px;font:500 1.6rem Newsreader,Georgia,serif}
+pre{white-space:pre-wrap;word-break:break-all;background:var(--field);padding:12px;border-radius:12px;font-size:.82rem}
+.app{display:grid;grid-template-columns:270px 1fr;height:100dvh}
+.side{background:var(--side);border-right:1px solid var(--line);display:flex;flex-direction:column;overflow:auto}
+.who{padding:20px 18px 10px;font:500 1.25rem Newsreader,Georgia,serif}.who small{display:block;color:var(--mute);font:400 .78rem Inter,sans-serif;overflow:hidden;text-overflow:ellipsis}
+.nav{padding:6px 10px;display:grid;gap:3px}
+.nav button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;background:none;color:var(--ink);padding:9px 10px;border-radius:14px;font-weight:500;transition:background .25s,color .25s,transform .25s var(--ease)}
+.nav button:hover{background:var(--sel);transform:translateX(3px)}.nav button.on{background:var(--ink);color:var(--pane);transform:none}
+.nav .n{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--sel);color:var(--acc);font-weight:700;font-size:.78rem;flex:none;transition:.25s}.nav button.on .n{background:rgba(255,255,255,.18);color:#fff}
+.nav .bd{margin-left:auto;background:var(--acc);color:#fff;border-radius:999px;font-size:.7rem;padding:1px 8px;font-weight:700}.nav button.on .bd{background:#fff;color:var(--ink)}
+.sf2{margin-top:auto;padding:12px 16px;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap}
+.main{display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.top{display:flex;align-items:center;gap:12px;padding:0 22px;height:58px;background:rgba(251,250,248,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);flex:none}.top h1{font:500 1.35rem Newsreader,Georgia,serif;margin:0}
+#burger{display:none;border:0;background:none;font-size:1.4rem;color:var(--ink)}
+.body{flex:1;overflow:auto;padding:22px;scroll-behavior:smooth}.view:not(.hide){animation:rise .4s var(--ease)}
+.panel{background:var(--pane);border-radius:24px;padding:24px;margin:0 auto 18px;max-width:860px;box-shadow:0 1px 0 #fff inset,0 20px 40px -26px rgba(31,38,43,.3)}
+.panel h2{margin:0 0 4px;font:500 1.35rem Newsreader,Georgia,serif}.panel>p{margin:0 0 18px;color:var(--mute);font-size:.88rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;max-width:860px;margin:0 auto 18px}
+.stat{background:var(--pane);border-radius:20px;padding:16px;box-shadow:0 18px 30px -24px rgba(31,38,43,.35);animation:rise .5s var(--ease) both;transition:transform .3s var(--ease)}.stat:hover{transform:translateY(-3px)}.stat b{display:block;font:500 2rem/1.1 Newsreader,Georgia,serif}.stat span{color:var(--mute);font-size:.8rem}
+.qa{display:flex;gap:8px;flex-wrap:wrap}
+.acc{border:1px solid var(--line);border-radius:18px;margin-bottom:12px;background:var(--pane);overflow:hidden;transition:box-shadow .3s}.acc.open{box-shadow:0 14px 30px -22px rgba(31,38,43,.4)}
+.ah{display:flex;justify-content:space-between;align-items:center;width:100%;border:0;background:none;padding:15px 18px;font-weight:600;color:var(--ink);text-align:left}.ah:hover{background:var(--field)}
+.ah i{font-style:normal;color:var(--acc);transition:transform .4s var(--ease)}.acc.open .ah i{transform:rotate(180deg)}
+.ab{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}.acc.open .ab{grid-template-rows:1fr}.ab>div{overflow:hidden;min-height:0}.ab .in{padding:6px 18px 4px}
+.chat{display:grid;grid-template-columns:330px 1fr;height:calc(100dvh - 58px);margin:-22px}
+.clist{background:var(--side);border-right:1px solid var(--line);overflow:auto}.ctabs{display:flex;gap:6px;padding:10px;position:sticky;top:0;background:var(--side);border-bottom:1px solid var(--line);z-index:1}
+.ctabs .btn{flex:1}.ctabs .btn.on{background:var(--sel);color:var(--acc)}
+.ci{display:flex;gap:12px;padding:11px 14px;cursor:pointer;align-items:center;transition:background .2s;animation:rise .35s var(--ease) both}.ci:hover{background:var(--field)}.ci.on{background:var(--sel)}
+.av{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:600;font-size:1.05rem}
+.ci .t{min-width:0;flex:1}.ci .t b{display:flex;justify-content:space-between;gap:8px;align-items:center}.ci .t b span{color:var(--mute);font-weight:400;font-size:.75rem;white-space:nowrap}
+.ci .t div{color:var(--mute);font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dot{background:var(--acc);color:#fff;border-radius:999px;min-width:20px;height:20px;display:grid;place-items:center;font-size:.6rem;padding:0 6px}
+.cview{overflow:auto;padding:20px;background:var(--bg)}.cview .hd{display:flex;align-items:center;gap:12px;margin-bottom:18px}.cview .hd b{display:block}.cview .hd small{color:var(--mute)}
+.bub{background:var(--pane);border-radius:20px 20px 20px 6px;padding:14px 18px;max-width:640px;box-shadow:0 12px 24px -18px rgba(31,38,43,.5);white-space:pre-wrap;word-break:break-word;animation:pop .35s var(--ease)}.bub .sj{font-weight:700;color:var(--acc);display:block;margin-bottom:4px}.bub time{display:block;text-align:right;color:var(--mute);font-size:.72rem;margin-top:6px}
+.empty{color:var(--mute);text-align:center;margin-top:20vh;padding:0 16px}.acts{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.chip{font-size:.68rem;padding:2px 9px;border-radius:999px;background:var(--field);color:var(--mute)}.chip.pub{background:var(--out);color:var(--accd)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+.tile{background:var(--field);border-radius:18px;overflow:hidden;font-size:.75rem;animation:pop .4s var(--ease) both;transition:transform .3s var(--ease)}.tile:hover{transform:translateY(-3px)}.tile img{width:100%;aspect-ratio:1;object-fit:cover;display:block}.tile div{padding:8px;display:flex;gap:4px;flex-wrap:wrap}.tile.pick{cursor:pointer}.tile.pick:hover{outline:3px solid var(--acc)}
+#links{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:16px}
+.lk{background:var(--field);border-radius:20px;padding:16px;animation:pop .4s var(--ease) both}.lk label{margin-bottom:8px}.lk input,.lk textarea,.lk select{background:var(--pane)}.lk .acts{margin-top:4px}
+.prev{display:flex;gap:16px;align-items:center;margin-bottom:14px}.prev img{width:92px;height:92px;object-fit:cover;border-radius:32%;background:var(--field)}.prev img.sq{border-radius:16px;width:140px;height:90px}
+.modal{position:fixed;inset:0;background:rgba(31,38,43,.45);backdrop-filter:blur(4px);display:grid;place-items:center;z-index:30;padding:16px;animation:fade .25s}.sheet{background:var(--pane);border-radius:26px;width:min(720px,100%);max-height:86dvh;display:flex;flex-direction:column;animation:pop .35s var(--ease)}.sheet .mh,.sheet .mf{padding:14px 20px;display:flex;justify-content:space-between;align-items:center}.sheet .mb{padding:0 20px;overflow:auto;flex:1}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,24px);opacity:0;pointer-events:none;padding:12px 22px;border-radius:999px;background:var(--ink);color:#fff;z-index:50;box-shadow:0 14px 34px rgba(0,0,0,.3);transition:opacity .3s,transform .4s var(--ease)}#toast.show{opacity:1;transform:translate(-50%,0)}#toast.err{background:#a6432f}
+#ed{z-index:40}#modal{z-index:45}
+.sheet.ed{width:min(760px,100%)}.edtop{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.edtop select{width:auto}
+.edst{position:relative;width:min(100%,560px,calc(50dvh * var(--ar,2)));aspect-ratio:var(--ar,2);margin:0 auto 12px;overflow:hidden;border-radius:14px;touch-action:none;cursor:grab;user-select:none;outline:none;
+background:repeating-conic-gradient(#e3e5e4 0 25%,#fbfbfa 0 50%) 0 0/16px 16px;box-shadow:0 0 0 1px var(--line),0 20px 40px -24px rgba(31,38,43,.5)}
+.edst img{position:absolute;left:50%;top:50%;max-width:none;pointer-events:none;-webkit-user-drag:none}
+.edst .gv,.edst .gh{position:absolute;pointer-events:none;filter:drop-shadow(0 0 1px rgba(0,0,0,.6))}
+.edst .gv{left:50%;top:0;bottom:0;border-left:1.5px dashed rgba(255,255,255,.95)}.edst .gh{top:50%;left:0;right:0;border-top:1.5px dashed rgba(255,255,255,.95)}
+.edst .gv.ok,.edst .gh.ok{border-color:#4ade80}
+.edst .g3{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 33.2%,rgba(255,255,255,.35) 33.3%,transparent 33.5%,transparent 66.5%,rgba(255,255,255,.35) 66.7%,transparent 66.8%),linear-gradient(transparent 33.2%,rgba(255,255,255,.35) 33.3%,transparent 33.5%,transparent 66.5%,rgba(255,255,255,.35) 66.7%,transparent 66.8%)}
+#edph{position:absolute;inset:0;display:grid;place-items:center;color:var(--mute);text-align:center;padding:16px;font-size:.9rem}
+.badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}.badge{font-size:.78rem;font-weight:600;padding:5px 12px;border-radius:999px;background:var(--field);color:var(--mute);transition:.25s}.badge.ok{background:#dfe9cf;color:#44601f}.badge.warn{background:#f3dfd3;color:#a6432f}
+.qa .btn.on{background:var(--ink);color:var(--pane)}
+.back{display:none}
+.fp{display:grid;grid-template-columns:1.5fr 1.1fr .6fr;gap:10px;align-items:end;margin-bottom:8px}.fr{overflow:hidden;border-radius:14px;background:var(--field);box-shadow:0 0 0 1px var(--line)}.fr img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}#fr1{cursor:crosshair;touch-action:none;position:relative}.fov{position:absolute;left:0;right:0;bottom:0;padding:26px 10px 8px;background:linear-gradient(transparent,rgba(32,22,12,.78));color:#fff;display:flex;flex-direction:column;gap:4px;align-items:flex-start;pointer-events:none}.fov .fc{font-size:.58rem;font-weight:700;background:rgba(254,253,251,.92);color:#1f262b;border-radius:999px;padding:2px 8px}.fov .ft{font:500 .85rem/1.2 Newsreader,Georgia,serif}
+.fpn{display:grid;grid-template-columns:1.5fr 1.1fr .6fr;gap:10px;font-size:.7rem;color:var(--mute);margin-bottom:12px}.hint{font-size:.8rem;color:var(--mute);margin:0 0 12px}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:820px){.app{grid-template-columns:1fr}.side{position:fixed;inset:0 22% 0 0;z-index:20;transform:translateX(-102%);transition:transform .35s var(--ease);box-shadow:20px 0 50px rgba(0,0,0,.2)}body.side .side{transform:none}#burger{display:block}
+.chat{grid-template-columns:1fr}.chat .cview{display:none}.chat.open .clist{display:none}.chat.open .cview{display:block;animation:rise .3s var(--ease)}.back{display:inline-block;margin-bottom:12px}.body{padding:14px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* social sharing & seo */
+.ssim{position:relative;aspect-ratio:1200/630;border-radius:18px;overflow:hidden;background:var(--field);box-shadow:0 14px 30px -20px rgba(31,38,43,.45)}.ssim img{width:100%;height:100%;display:block;object-fit:cover}.ssim.contain img{object-fit:contain}.ssim.contain{background:#e8e6e0}
+.ssmeta{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.ssmeta .badge{font-size:.72rem}
+.ssurl{display:flex;gap:8px;margin-bottom:14px}.ssurl input{flex:1;font-size:.78rem}
+.sswarn{background:#f6ece7;color:#8a3b27;border-radius:14px;padding:10px 14px;font-size:.8rem;margin:0 0 12px}
+.sspend{background:var(--sel);border-radius:20px;padding:16px;margin:16px 0}
+.sscard{border-radius:16px;overflow:hidden;background:var(--field);max-width:420px}.sscard .ssim{border-radius:0;box-shadow:none}.sscard div.t{padding:10px 14px 12px}.sscard small{display:block;color:var(--mute);font-size:.68rem;letter-spacing:.04em;text-transform:uppercase}.sscard b{display:block;font:500 .98rem Newsreader,Georgia,serif;margin:2px 0}.sscard span{display:block;color:var(--mute);font-size:.78rem;line-height:1.35}
+.sslinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}.sslinks a{text-decoration:none;display:inline-block}
+
+/* hero photo manager */
+.hpw{display:grid;grid-template-columns:190px 1fr;gap:18px;align-items:start;margin-bottom:6px}
+.hpv{position:relative;aspect-ratio:1/1.06;border-radius:18px;background:var(--field);overflow:visible;isolation:isolate}
+.hpv::before{content:"";position:absolute;z-index:-1;left:15%;right:6%;bottom:13%;aspect-ratio:1;border-radius:50%;background:linear-gradient(160deg,#7a9aab,#46687a 50%,#2f4b59)}
+.hpv img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 100%}
+.hpv.framed::before{display:none}.hpv.framed img{inset:auto;left:15%;bottom:13%;width:79%;height:auto;aspect-ratio:1;border-radius:50%;object-fit:cover;object-position:50% 22%;border:3px solid #fff}
+.hfav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.78rem;color:var(--mute)}.hfav img{background:var(--field);border-radius:6px;object-fit:cover}.hfav img[src=""],.hfav img:not([src]){visibility:hidden}.hfav small{flex-basis:100%;font-size:.72rem}
+@media(max-width:620px){.hpw{grid-template-columns:1fr}.hpv{max-width:220px}}
+</style></head><body>
+<div id="toast" role="status"></div>
+<div id="login" class="login"><h1>Admin sign in</h1>
+<label>Email<input id="em" type="email" autocomplete="username"></label>
+<label>Password<input id="pw" type="password" autocomplete="current-password"></label>
+<button class="btn p" id="go" style="width:100%">Sign in</button></div>
+
+<div id="noadmin" class="login hide"><h1>Almost there</h1>
+<p>Signed in as <b id="uem"></b>, but this account is not in the <code>admins</code> table yet. In Supabase → SQL Editor run:</p>
+<pre id="sql"></pre><p id="err" style="color:#e5484d"></p>
+<button class="btn p" id="re">Check again</button> <button class="btn" id="out2">Sign out</button></div>
+
+<div id="app" class="app hide">
+<aside class="side"><div class="who">Site admin<small id="me"></small></div><nav class="nav" id="nav" aria-label="Admin sections"></nav>
+<div class="sf2"><a class="btn s" href="index.html" target="_blank" style="text-decoration:none">View site ↗</a><button class="btn s" id="out">Sign out</button></div></aside>
+<div class="main"><div class="top"><button id="burger" aria-label="Menu">☰</button><h1 id="title"></h1></div><div class="body">
+
+<div class="view" id="v-dash"><div class="stats" id="stats"></div>
+<div class="panel"><h2>Quick actions</h2><p>Start here, or follow the numbered steps in the sidebar.</p><div class="qa"><button class="btn p" data-go="writing" data-new="1">Write a post</button><button class="btn" data-go="messages">Open messages</button><button class="btn" data-go="media">Photo library</button><button class="btn" data-go="home">Edit home page</button></div></div>
+<div class="panel"><h2>System</h2><p id="sys">Checking…</p></div></div>
+
+<div class="view hide" id="v-home"><form class="sf panel"><h2>Home page</h2><p>The first thing visitors see. Open a section, edit, then save.</p><div class="acc open"><button type="button" class="ah">Your photo<i>▾</i></button><div class="ab"><div><div class="in"><div class="hpw"><div class="hpv cut" id="hpv"><img id="phv" alt="Hero photo preview"></div><div class="hpc"><div class="acts" style="margin:0 0 12px"><button type="button" class="btn" id="phpick">Choose or upload photo</button> <button type="button" class="btn" id="pheditbtn">Edit / crop</button> <button type="button" class="btn d" id="phdef">Use default</button></div>
+<label style="display:flex;align-items:center;gap:8px;margin:0 0 6px;font-weight:600"><input type="checkbox" id="phcutcb"> Transparent cut-out (person overlaps the circle)</label><p class="hint" style="margin:0 0 12px">Detected automatically. Photos with a normal background are shown in a neat circle instead, so the layout never breaks. Use <b>Edit / crop</b> with “Transparent” ticked to export a cut-out.</p>
+<div class="hfav"><span>Tab icon</span><img id="hf16" alt="" width="16" height="16"><img id="hf32" alt="" width="32" height="32"><img id="hf48" alt="" width="48" height="48"><img id="hf180" alt="" width="48" height="48"><small id="hfn">Made automatically when you save</small></div></div></div><input type="hidden" name="photo" id="phurl"><input type="hidden" name="photo_cut" id="phcut"></div></div></div></div><div class="acc"><button type="button" class="ah">Headline &amp; introduction<i>▾</i></button><div class="ab"><div><div class="in"><label>Eyebrow<input name="eyebrow" maxlength="80"></label><label>Headline, line 1<input name="h1" maxlength="80"></label><label>Headline, line 2 (accent colour)<input name="h1b" maxlength="80"></label><label>Introduction<textarea name="intro" maxlength="400" rows="3"></textarea></label></div></div></div></div><div class="acc"><button type="button" class="ah">Quote<i>▾</i></button><div class="ab"><div><div class="in"><label>Quote<input name="quote" maxlength="160"></label><label>Quote caption<input name="quote_sub" maxlength="160"></label></div></div></div></div><button class="btn p" type="submit">Save &amp; publish</button></form></div>
+
+<div class="view hide" id="v-about"><form class="sf panel"><h2>About page</h2><p>Your story, at-a-glance list and values.</p><div class="acc open"><button type="button" class="ah">Heading<i>▾</i></button><div class="ab"><div><div class="in"><label>Subtitle<input name="about_sub" maxlength="200"></label><label>Heading<input name="about_title" maxlength="120"></label></div></div></div></div><div class="acc"><button type="button" class="ah">Your story<i>▾</i></button><div class="ab"><div><div class="in"><label>Story (blank line between paragraphs)<textarea name="about" rows="9" maxlength="4000"></textarea></label></div></div></div></div><div class="acc"><button type="button" class="ah">At a glance &amp; values<i>▾</i></button><div class="ab"><div><div class="in"><label>At a glance (one per line: Title | Description)<textarea name="glance" maxlength="1500" rows="5"></textarea></label><label>Values (one per line: Title | Description)<textarea name="values" maxlength="1500" rows="4"></textarea></label></div></div></div></div><button class="btn p" type="submit">Save &amp; publish</button></form></div>
+
+<div class="view hide" id="v-interests"><form class="sf panel"><h2>Interests page</h2><p>One group per line: <b>Label | Title | tag, tag, tag</b></p>
+<label>Groups<textarea name="interests" rows="9" maxlength="3000"></textarea></label><button class="btn p" type="submit">Save &amp; publish</button></form></div>
+
+<div class="view hide" id="v-writing"><div class="chat" id="wchat"><aside class="clist"><div class="ctabs"><button class="btn p" id="newp">+ New post</button></div><div id="plist"></div></aside>
+<section class="cview"><button class="btn s back" id="wback">← Posts</button><div class="empty" id="pempty">Select a post or create a new one.</div>
+<form id="pf" class="panel hide" style="margin:0">
+<label>Title<input name="ptitle" maxlength="200" required></label>
+<label>Address (letters, numbers, hyphens. Leave blank for auto)<input name="slug" maxlength="120"></label>
+<label>Short summary<textarea name="excerpt" rows="2" maxlength="400"></textarea></label>
+<label>Category (shows as a chip, groups the blog)<input name="category" maxlength="40" list="catl" placeholder="Reflections, Learning, Faith…"></label><datalist id="catl"><option>Reflections</option><option>Learning</option><option>Faith</option><option>Technology</option><option>Journal</option></datalist>
+<div class="prev"><img class="sq hide" id="pcv" alt=""><div><button type="button" class="btn s" id="pcpick">Cover: choose or upload</button> <button type="button" class="btn s" id="pcedit">Edit / crop</button> <button type="button" class="btn s d hide" id="pcrm">Remove</button></div></div><input type="hidden" id="pcurl">
+<div id="fpbox" class="hide"><div class="fp"><div class="fr" id="fr1" style="aspect-ratio:3/2"><img alt=""><div class="fov"><span class="fc"></span><b class="ft"></b></div></div><div class="fr" style="aspect-ratio:16/9"><img alt=""></div><div class="fr" style="aspect-ratio:1"><img alt=""></div></div>
+<div class="fpn"><span>Top post · 3:2</span><span>Card · 16:9</span><span>List · 1:1</span></div>
+<p class="hint">This is exactly how the photo is cropped on the blog. This is a live preview with your title and category. Click or drag on the big preview to choose the part of the photo that must stay in view.</p>
+<div class="two"><label>Left ↔ Right<input type="range" id="fpx" min="0" max="100" value="50"></label><label>Top ↕ Bottom<input type="range" id="fpy" min="0" max="100" value="50"></label></div></div>
+<label>Body: ## Heading, ### Subheading, **bold**, *italic*, [text](https://link), “- ” list, “> ” quote<textarea name="body" rows="14" maxlength="100000"></textarea></label>
+<label>Status<select name="status"><option value="draft">Draft (private)</option><option value="published">Published (public)</option></select></label>
+<label><span><input type="checkbox" name="featured"> Show as the big top post on the blog</span></label>
+<div class="acts"><button class="btn p" type="submit">Save post</button><button type="button" class="btn d hide" id="pdel">Delete</button></div></form></section></div></div>
+
+<div class="view hide" id="v-comments"><div class="panel"><h2>Blog comments</h2><p>New comments stay hidden until you approve them. Approved comments show under the post.</p><div class="qa" style="margin-bottom:16px"><button class="btn on" data-cf="pending">Waiting</button><button class="btn" data-cf="approved">Approved</button><button class="btn" data-cf="all">All</button></div><div id="cmlist"></div></div></div>
+
+<div class="view hide" id="v-projects"><div class="panel"><h2>Projects &amp; websites</h2><p>Your academy, products and websites. Visitors tap a card to read the full details first, then visit the link. “Featured” ones also appear on the Home page.</p><div id="projs"></div><button class="btn p" id="addp">+ Add project</button></div></div>
+
+<div class="view hide" id="v-accounts"><div class="panel"><h2>Accounts &amp; social links</h2><p>Shown on the Accounts page and the Home/Contact pages when “Visible” is ticked.</p><div id="links"></div><button class="btn p" id="addl">+ Add link</button></div></div>
+
+<div class="view hide" id="v-messages"><div class="chat" id="mchat"><aside class="clist"><div class="ctabs"><button class="btn on" data-f="all">All</button><button class="btn" data-f="unread">Unread</button></div><div id="cl"></div></aside>
+<section class="cview"><button class="btn s back" id="mback">← Messages</button><div id="cv"><div class="empty">Select a message</div></div></section></div></div>
+
+<div class="view hide" id="v-media"><div class="panel"><h2>Photo library</h2><p>Everything you upload lives here. JPG, PNG or WebP, up to 5 MB each.</p>
+<label class="btn p" style="display:inline-block;color:#fff;margin-bottom:16px">Upload photos<input type="file" id="mup" accept="image/jpeg,image/png,image/webp" multiple hidden></label><div class="grid" id="mgrid"></div></div></div>
+
+<div class="view hide" id="v-settings"><form class="sf panel"><h2>Site settings</h2><p>Texts and colour used across all pages.</p><div class="acc open"><button type="button" class="ah">Page texts<i>▾</i></button><div class="ab"><div><div class="in"><label>Accounts page intro<input name="accounts_intro" maxlength="200"></label><label>Contact page intro<textarea name="contact_intro" maxlength="300" rows="2"></textarea></label><label>Footer line<input name="footer" maxlength="120"></label></div></div></div></div><div class="acc"><button type="button" class="ah">Look<i>▾</i></button><div class="ab"><div><div class="in"><label>Accent colour<input name="accent" type="color" value="#46687a"></label></div></div></div></div><button class="btn p" type="submit">Save &amp; publish</button></form></div>
+
+</div></div></div>
+
+
+<div class="view hide" id="v-social"><div class="panel"><h2>Social sharing image</h2><p>The picture that appears when your link is shared on WhatsApp, Facebook, Messenger, Telegram, LinkedIn and X. Images are stored on Cloudinary and the choice is saved to your site, so no GitHub edit is needed.</p>
+<div class="ssim" id="ssa"><img alt="Active social sharing image"></div>
+<div class="ssmeta"><span class="badge" id="ssb1">Default image</span><span class="badge" id="ssb2">1200 × 630</span><span class="badge" id="ssb3">Source: site default</span></div>
+<div class="ssurl"><input id="ssu" readonly aria-label="Image URL"><button class="btn s" type="button" id="sscp">Copy URL</button></div>
+<div class="acts"><label class="btn p" style="margin:0;color:#fff" id="sspl">Upload new image<input type="file" id="ssf" accept="image/jpeg,image/png,image/webp" hidden></label><button class="btn d" type="button" id="ssrs">Restore default</button></div>
+<div class="sspend hide" id="sspend"><b style="display:block;margin-bottom:10px">Selected image · not saved yet</b><div class="ssim" id="ssp"><img alt="Selected image preview"></div>
+<div class="ssmeta"><span class="badge" id="ssp1"></span><span class="badge" id="ssp2"></span></div><div class="sswarn hide" id="sspw"></div>
+<label>How should it fit the 1200 × 630 frame?<select id="ssfit"><option value="fill">Fill the frame (crops the edges)</option><option value="fit">Show the whole picture (soft blurred background)</option></select></label>
+<div class="acts"><button class="btn p" type="button" id="sssave">Upload &amp; save</button><button class="btn" type="button" id="sscancel">Cancel</button></div></div>
+<p class="hint" style="margin-top:14px">Best: 1200 × 630 px (about 1.91 : 1), JPG, PNG or WebP, up to 8 MB. Anything else is fitted automatically on delivery.</p></div>
+
+<div class="panel"><h2>Search &amp; link text</h2><p>Title, description and site info used in Open Graph and Twitter cards.</p>
+<label>Page title<input id="sst" maxlength="90" placeholder="Hamza Muhammad"></label>
+<label>Description (about 150 characters)<textarea id="ssd" rows="3" maxlength="300"></textarea></label>
+<div class="two"><label>Site name<input id="ssn" maxlength="60" placeholder="Hamza Muhammad"></label><label>Twitter / X handle<input id="ssx" maxlength="16" placeholder="@yourname"></label></div>
+<label>Site address (used for links, e.g. https://example.com)<input id="ssw" maxlength="200" placeholder="https://"></label>
+<div class="acts"><button class="btn p" type="button" id="ssseo">Save text</button></div>
+<h2 style="margin-top:22px;font-size:1.1rem">Link preview</h2><div class="sscard"><div class="ssim" id="ssc"><img alt=""></div><div class="t"><small id="scd"></small><b id="sct"></b><span id="scp"></span></div></div>
+<h2 style="margin-top:22px;font-size:1.1rem">Refresh the preview on each platform</h2><p style="margin:0 0 8px;color:var(--mute);font-size:.82rem">Platforms cache images. After you save, paste your link into these tools once to force a refresh. WhatsApp and Messenger pick it up from the Facebook tool.</p>
+<div class="sslinks"><a class="btn s" target="_blank" rel="noopener" href="https://developers.facebook.com/tools/debug/">Facebook / WhatsApp / Messenger</a><a class="btn s" target="_blank" rel="noopener" href="https://www.linkedin.com/post-inspector/">LinkedIn</a><a class="btn s" target="_blank" rel="noopener" href="https://t.me/WebpageBot">Telegram bot</a><a class="btn s" target="_blank" rel="noopener" href="https://cards-dev.twitter.com/validator">X (Twitter)</a></div></div></div>
+
+<div class="modal hide" id="modal"><div class="sheet"><div class="mh"><b>Photo library</b><button class="btn s" id="mx">✕</button></div><div class="mb"><div class="grid" id="pgrid"></div></div>
+<div class="mf"><label class="btn p" style="margin:0;color:#fff">Upload new<input type="file" id="pup" accept="image/jpeg,image/png,image/webp" hidden></label><span style="color:var(--mute);font-size:.8rem">Click a photo to use it</span></div></div></div>
+
+<div class="modal hide" id="ed"><div class="sheet ed"><div class="mh"><b>Image editor</b><button class="btn s" id="edx">✕</button></div><div class="mb">
+<div class="edtop"><button class="btn s" id="edlib" type="button">From library</button><label class="btn s" style="margin:0">Upload file<input type="file" id="edfile" accept="image/jpeg,image/png,image/webp" hidden></label>
+<select id="edas" aria-label="Frame shape"><option value="0.8">Hero portrait · 4:5</option><option value="1.5">Blog cover · 3:2</option><option value="2">Project card · 2:1</option><option value="1">Square · 1:1</option><option value="1.3333">Landscape · 4:3</option><option value="1.7778">Wide · 16:9</option></select></div>
+<div class="edst" id="edst" tabindex="0" aria-label="Drag to position the image"><img id="edimg" alt="" draggable="false"><div class="g3"></div><div class="gv" id="gv"></div><div class="gh" id="gh"></div><div id="edph">Choose a photo from the library or upload one</div></div>
+<div class="badges"><span class="badge" id="edc">Not set</span><span class="badge" id="edq">Not set</span></div>
+<label>Zoom<input type="range" id="edz" min="0.2" max="8" step="0.01" value="1"></label>
+<div class="acts" style="margin:0 0 14px"><button class="btn s" id="edzo" type="button" aria-label="Zoom out">−</button><button class="btn s" id="edzi" type="button" aria-label="Zoom in">+</button><button class="btn s" id="edcen" type="button">Centre</button><button class="btn s" id="edfit" type="button">Fit whole image</button><button class="btn s" id="edfill" type="button">Fill frame</button>
+<label style="display:flex;align-items:center;gap:6px;margin:0">Background<input type="color" id="edbg" value="#ffffff"></label><label style="display:flex;align-items:center;gap:6px;margin:0"><input type="checkbox" id="edtr"> Transparent</label></div></div>
+<div class="mf"><span style="color:var(--mute);font-size:.78rem">Drag to move · scroll, pinch or slider to zoom · double click to fit or fill · arrow keys nudge</span><button class="btn p" id="edok" type="button">Apply &amp; save</button></div></div></div>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
+<script>
+const C=window.SITE_CONFIG||{},$=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+if(!C.url||!C.anonKey){document.body.innerHTML='<p style="padding:40px">Fill in config.js first (see README).</p>';throw 0}
+if(typeof supabase==='undefined'){document.body.innerHTML='<p style="padding:40px">Could not load the Supabase library. Check your connection or disable ad-blockers, then reload.</p>';throw 0}
+const sb=supabase.createClient(C.url,C.anonKey);let data={},tt,user=null;
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+const toast=(t,k)=>{const e=$('#toast');e.textContent=t;e.className=k+' show';clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('show'),3500)};
+const busy=async(b,fn)=>{if(b)b.disabled=true;try{await fn()}catch(e){toast(e.message||'Something went wrong','err')}if(b)b.disabled=false};
+const when=d=>new Date(d).toLocaleString([],{dateStyle:'medium',timeStyle:'short'});
+const hue=s=>[...s].reduce((a,c)=>a+c.charCodeAt(0),0)*37%360;
+const av=n=>{const a=el('div','av',(n||'?')[0].toUpperCase());a.style.background=`hsl(${196+hue(n||'?')%30} 20% ${38+hue(n||'?')%12}%)`;return a};
+const VIEWS={dash:'Dashboard',home:'Home page',about:'About page',interests:'Interests page',writing:'Blog',comments:'Comments',projects:'Projects',accounts:'Accounts',messages:'Messages',media:'Photo library',settings:'Site settings',social:'Social Sharing & SEO'};
+const show=n=>['login','noadmin','app'].forEach(x=>$('#'+x).classList.toggle('hide',x!==n));
+/* ---------- navigation ---------- */
+Object.keys(VIEWS).forEach((k,i)=>{const b=el('button');b.dataset.v=k;b.append(el('span','n',i+1),el('span','',VIEWS[k]));if(k==='messages'||k==='comments')b.append(el('span','bd hide'));b.onclick=()=>go(k);$('#nav').append(b)});
+const LOAD={dash:()=>loadDash(),writing:()=>loadPosts(),projects:()=>loadProjects(),accounts:()=>loadLinks(),messages:()=>loadMsgs(),comments:()=>loadComments(),media:()=>loadMedia(),social:()=>loadSocial()};
+function go(v){$$('.view').forEach(x=>x.classList.toggle('hide',x.id!=='v-'+v));$$('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$('#title').textContent=VIEWS[v];document.body.classList.remove('side');$('.body').scrollTop=0;if(LOAD[v])LOAD[v]().catch(e=>toast(e.message,'err'))}
+$('#burger').onclick=()=>document.body.classList.toggle('side');
+document.addEventListener('click',e=>{const h=e.target.closest('.ah');if(h)h.parentElement.classList.toggle('open');const g=e.target.closest('[data-go]');if(g){go(g.dataset.go);if(g.dataset.new)fillPost(null)}});
+/* ---------- auth ---------- */
+async function start(){
+  const{data:{session}}=await sb.auth.getSession();
+  if(!session){show('login');return}
+  user=session.user;
+  const{data:a,error}=await sb.from('admins').select('user_id').maybeSingle();
+  if(error||!a){$('#uem').textContent=user.email;$('#sql').textContent=`insert into admins (user_id) values ('${user.id}');`;$('#err').textContent=error?('Database says: '+error.message):'';show('noadmin');return}
+  $('#me').textContent=user.email;show('app');
+  try{await loadSettings()}catch(e){toast(e.message,'err')}
+  go('dash');refreshBadge();
+}
+$('#go').onclick=e=>busy(e.target,async()=>{const{error}=await sb.auth.signInWithPassword({email:$('#em').value.trim(),password:$('#pw').value});
+  if(error)throw new Error(error.message==='Invalid login credentials'?'Wrong email or password.':error.message);$('#pw').value='';await start()});
+$('#pw').addEventListener('keydown',e=>{if(e.key==='Enter')$('#go').click()});
+$('#re').onclick=()=>start();$('#out').onclick=$('#out2').onclick=async()=>{await sb.auth.signOut();start()};
+/* ---------- settings (home / about / interests / settings) ---------- */
+async function loadSettings(){const{data:r,error}=await sb.from('site_settings').select('data').eq('id',1).single();if(error)throw error;data=r.data||{};
+  $$('form.sf [name]').forEach(f=>{const v=data[f.name];if(v!=null&&v!=='')f.value=v});setPhoto(data.photo||DEF_HERO);setCut(isCutV(data.photo_cut));showFav()}
+async function saveSettings(p){const next={...data,...p};const{error}=await sb.from('site_settings').upsert({id:1,data:next,updated_at:new Date().toISOString()});if(error)throw error;data=next}
+$$('form.sf').forEach(f=>f.onsubmit=e=>{e.preventDefault();busy(f.querySelector('.p'),async()=>{const p={};[...f.elements].forEach(x=>{if(x.name)p[x.name]=x.value.trim()});const hm=!!f.closest('#v-home');if(hm)await photoSync(p);await saveSettings(p);if(hm)showFav();toast('Saved. The public site now shows this.','ok')})});
+const DEF_HERO='assets/hero-cut.webp',isCutV=v=>!(v===false||v==='false'||v===0);
+function setCut(c){$('#phcutcb').checked=c;$('#phcut').value=c?'true':'false';$('#hpv').classList.toggle('cut',c);$('#hpv').classList.toggle('framed',!c)}
+const setPhoto=u=>{$('#phv').src=u;$('#phurl').value=u};
+function loadImg(u){return new Promise((ok,no)=>{const i=new Image();i.crossOrigin='anonymous';i.onload=()=>ok(i);i.onerror=()=>no(new Error('Could not read the photo'));i.src=u})}
+async function hasAlpha(u){try{const i=await loadImg(u),c=document.createElement('canvas');c.width=c.height=48;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(i,0,0,48,48);
+  const px=[[0,0],[47,0],[0,24],[47,24],[24,0]].map(([a,b])=>x.getImageData(a,b,1,1).data[3]);return px.filter(a=>a<200).length>=3}catch(_){return null}}
+const setPick=async u=>{setPhoto(u);const a=await hasAlpha(u);if(a!==null)setCut(a)};
+$('#phpick').onclick=()=>pick(setPick);$('#pheditbtn').onclick=()=>edOpen($('#phurl').value,setPick,'0.8');
+$('#phcutcb').onchange=e=>setCut(e.target.checked);
+$('#phdef').onclick=()=>{if(confirm('Use the default hero photo again?\n\nSave afterwards to publish it.')){setPhoto(DEF_HERO);setCut(true)}};
+function showFav(){[16,32,48,180].forEach(n=>{const i=$('#hf'+n),u=data['favicon_'+n];if(u)i.src=u;else i.removeAttribute('src')});$('#hfn').textContent=data.favicon_32?'Tab icon is in sync with this photo':'Made automatically when you save'}
+async function makeFavicons(u,cut){const i=await loadImg(u),W=i.naturalWidth,H=i.naturalHeight,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(i,0,0);
+  let box;if(cut){const d=x.getImageData(0,0,W,H).data;let y0=-1,y1=0;for(let y=0;y<H&&y0<0;y++)for(let q=0;q<W;q+=2)if(d[(y*W+q)*4+3]>128){y0=y;break}
+    for(let y=H-1;y>=0;y--){let f=0;for(let q=0;q<W;q+=4)if(d[(y*W+q)*4+3]>128){f=1;break}if(f){y1=y;break}}
+    if(y0<0)y0=0;const hy=Math.round(y0+.42*(y1-y0));let x0=W,x1=0;for(let y=y0;y<hy;y+=2)for(let q=0;q<W;q+=2)if(d[(y*W+q)*4+3]>128){if(q<x0)x0=q;if(q>x1)x1=q}
+    const sz=Math.max(x1-x0,hy-y0)*1.08,cx=(x0+x1)/2,cy=(y0+hy)/2+.02*(hy-y0);box=[cx-sz/2,cy-sz/2,sz]}
+  else{const sz=Math.min(W,H*.8);box=[(W-sz)/2,H*.04,sz]}
+  const out={},ts=Date.now();
+  for(const n of [16,32,48,180]){const S=n*4,k=document.createElement('canvas');k.width=k.height=S;const g=k.getContext('2d');g.imageSmoothingQuality='high';
+    if(cut){g.fillStyle='#46687a';g.beginPath();g.roundRect?g.roundRect(0,0,S,S,n===180?0:S*.22):g.rect(0,0,S,S);g.fill()}
+    g.drawImage(i,box[0],box[1],box[2],box[2],0,0,S,S);
+    const f=document.createElement('canvas');f.width=f.height=n;const h=f.getContext('2d');h.imageSmoothingQuality='high';h.drawImage(k,0,0,n,n);
+    const blob=await new Promise(r=>f.toBlob(r,'image/png'));const name=`favicons/fav-${ts}-${n}.png`;
+    const{error}=await sb.storage.from('site').upload(name,blob,{contentType:'image/png',cacheControl:'31536000'});if(error)throw error;out['favicon_'+n]=mUrl(name)}
+  return out}
+async function photoSync(p){if(!p.photo)return;const changed=p.photo!==data.photo||!data.favicon_32||String(p.photo_cut)!==String(data.photo_cut);if(!changed)return;
+  p.photo_v=String(Date.now());
+  try{Object.assign(p,await makeFavicons(p.photo,p.photo_cut!=='false'))}catch(e){toast('Photo saved, but the tab icon could not be generated ('+(e.message||e)+').','err')}}
+/* ---------- media library ---------- */
+const mUrl=n=>sb.storage.from('site').getPublicUrl(n).data.publicUrl;
+async function listMedia(){const{data:f,error}=await sb.storage.from('site').list('',{limit:500,sortBy:{column:'created_at',order:'desc'}});
+  if(error)throw new Error('Cannot list photos: '+error.message+' (run migration_3_media.sql)');return f.filter(x=>x.id)}
+async function uploadFiles(files){let n=0;const ex={'image/jpeg':'jpg','image/png':'png','image/webp':'webp'};
+  for(const f of files){if(!ex[f.type])throw new Error(f.name+': only JPG, PNG or WebP.');if(f.size>5*1024*1024)throw new Error(f.name+': larger than 5 MB.');
+    const name=`${Date.now()}-${Math.random().toString(36).slice(2,7)}.${ex[f.type]}`;const{error}=await sb.storage.from('site').upload(name,f,{contentType:f.type,cacheControl:'31536000'});if(error)throw error;n++}return n}
+async function loadMedia(){const fs=await listMedia(),g=$('#mgrid');g.textContent='';if(!fs.length)g.textContent='No photos yet. Upload your first one.';
+  fs.forEach(f=>{const u=mUrl(f.name),t=el('div','tile'),i=el('img');i.src=u;i.loading='lazy';i.alt='';const d=el('div');
+    const c=el('button','btn s','Copy link');c.onclick=async()=>{await navigator.clipboard.writeText(u);toast('Link copied.','ok')};
+    const x=el('button','btn s d','Delete');x.onclick=()=>{if(confirm('Delete this photo? Pages using it will show a broken image.'))busy(x,async()=>{const{error}=await sb.storage.from('site').remove([f.name]);if(error)throw error;await loadMedia();toast('Photo deleted.','ok')})};
+    const ee=el('button','btn s','Edit');ee.onclick=()=>edOpen(u,()=>loadMedia(),'2');d.append(c,ee,x);t.append(i,d);g.append(t)})}
+$('#mup').onchange=e=>busy(null,async()=>{const n=await uploadFiles([...e.target.files]);e.target.value='';await loadMedia();toast(n+' photo(s) uploaded.','ok')});
+let pickCb=null;
+async function pick(cb){pickCb=cb;$('#modal').classList.remove('hide');await fillPicker()}
+async function fillPicker(){const g=$('#pgrid');g.textContent='Loading…';try{const fs=await listMedia();g.textContent='';if(!fs.length)g.textContent='No photos yet. Use “Upload new”.';
+  fs.forEach(f=>{const u=mUrl(f.name),t=el('div','tile pick'),i=el('img');i.src=u;i.alt='';i.loading='lazy';t.append(i);t.onclick=()=>{$('#modal').classList.add('hide');pickCb&&pickCb(u)};g.append(t)})}catch(e){g.textContent=e.message}}
+$('#mx').onclick=()=>$('#modal').classList.add('hide');
+$('#pup').onchange=e=>busy(null,async()=>{await uploadFiles([...e.target.files]);e.target.value='';await fillPicker();toast('Uploaded. Click it to use.','ok')});
+/* ---------- image editor ---------- */
+const ed={img:null,iw:0,ih:0,z:1,fx:0,fy:0,ar:2,W:0,H:0,sf:1,cb:null,drag:null},MAXW=2400,MINW=800,ZMIN=.2,ZMAX=10;
+const outW=()=>ed.img?Math.max(MINW,Math.min(MAXW,Math.round(ed.W/(ed.sf*ed.z)))):MAXW;
+const edst=$('#edst'),edimg=$('#edimg');
+function edMeasure(){edst.style.setProperty('--ar',ed.ar);const r=edst.getBoundingClientRect();ed.W=r.width||1;ed.H=r.height||1;if(ed.img)ed.sf=Math.min(ed.W/ed.iw,ed.H/ed.ih)}
+function edRender(){const cs=$('#edc'),qs=$('#edq');if(!ed.img){cs.textContent=qs.textContent='Not set';cs.className=qs.className='badge';return}
+  const s=ed.sf*ed.z;edimg.style.width=ed.iw*s+'px';edimg.style.height=ed.ih*s+'px';edimg.style.transform=`translate(-50%,-50%) translate(${ed.fx*ed.W}px,${ed.fy*ed.H}px)`;$('#edz').value=ed.z;
+  const cx=Math.abs(ed.fx*ed.W)<.6,cy=Math.abs(ed.fy*ed.H)<.6;$('#gv').classList.toggle('ok',cx);$('#gh').classList.toggle('ok',cy);
+  if(cx&&cy){cs.textContent='✓ Perfectly centred';cs.className='badge ok'}else{const p=[];if(!cx)p.push(Math.abs(ed.fx*100).toFixed(1)+'% '+(ed.fx>0?'right':'left'));if(!cy)p.push(Math.abs(ed.fy*100).toFixed(1)+'% '+(ed.fy>0?'down':'up'));cs.textContent='Off-centre: '+p.join(', ');cs.className='badge warn'}
+  const ow=outW(),q=s*ow/ed.W;if(q>1.05){qs.textContent='Enlarged ×'+q.toFixed(1)+', may look soft';qs.className='badge warn'}else{qs.textContent='✓ Crystal clear ('+ow+' px)';qs.className='badge ok'}}
+function edFit(){ed.z=1;ed.fx=ed.fy=0;edRender()}
+function edLoad(src,remote){const im=new Image();if(remote)im.crossOrigin='anonymous';
+  im.onload=()=>{ed.img=im;ed.iw=im.naturalWidth;ed.ih=im.naturalHeight;edimg.src=im.src;$('#edph').classList.add('hide');edMeasure();edFit()};
+  im.onerror=()=>toast('Could not load this image for editing. Try uploading the file instead.','err');
+  im.src=remote?src+(src.includes('?')?'&':'?')+'edit='+Date.now():src}
+function edOpen(url,cb,ar){ed.cb=cb;ed.ar=parseFloat(ar||'2');$('#edas').value=ar||'2';$('#ed').classList.remove('hide');ed.img=null;edimg.removeAttribute('src');edimg.style.width=edimg.style.height='0';$('#edph').classList.remove('hide');ed.fx=ed.fy=0;ed.z=1;
+  requestAnimationFrame(()=>{edMeasure();edRender();if(url)edLoad(url,true)})}
+$('#edx').onclick=()=>$('#ed').classList.add('hide');
+$('#edas').onchange=e=>{ed.ar=parseFloat(e.target.value);edMeasure();ed.img?edFit():edRender()};
+$('#edlib').onclick=()=>pick(u=>edLoad(u,true));
+$('#edfile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;if(!['image/jpeg','image/png','image/webp'].includes(f.type))return toast('Only JPG, PNG or WebP.','err');edLoad(URL.createObjectURL(f),false)};
+$('#edz').oninput=e=>{ed.z=parseFloat(e.target.value);edRender()};
+const edZoom=k=>{ed.z=Math.min(ZMAX,Math.max(ZMIN,ed.z*k));edRender()};$('#edzi').onclick=()=>edZoom(1.2);$('#edzo').onclick=()=>edZoom(1/1.2);
+edst.ondblclick=()=>{if(!ed.img)return;const fill=Math.max(ed.W/ed.iw,ed.H/ed.ih)/ed.sf;if(Math.abs(ed.z-1)<.02){ed.z=fill;ed.fx=ed.fy=0;edRender()}else edFit()};
+$('#edcen').onclick=()=>{ed.fx=ed.fy=0;edRender()};$('#edfit').onclick=edFit;
+$('#edfill').onclick=()=>{if(!ed.img)return;ed.z=Math.max(ed.W/ed.iw,ed.H/ed.ih)/ed.sf;ed.fx=ed.fy=0;edRender()};
+const edBg=()=>{edst.style.background=$('#edtr').checked?'':$('#edbg').value};$('#edbg').oninput=()=>{$('#edtr').checked=false;edBg()};$('#edtr').onchange=edBg;
+const ptr=new Map();let pinch=null;
+edst.onpointerdown=e=>{if(!ed.img)return;ptr.set(e.pointerId,{x:e.clientX,y:e.clientY});edst.setPointerCapture(e.pointerId);edst.style.cursor='grabbing';
+  if(ptr.size===2){const [p,q]=[...ptr.values()];pinch={d:Math.hypot(p.x-q.x,p.y-q.y)||1,z:ed.z};ed.drag=null}else ed.drag={x:e.clientX,y:e.clientY,fx:ed.fx,fy:ed.fy}};
+edst.onpointermove=e=>{if(!ptr.has(e.pointerId))return;ptr.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pinch&&ptr.size>=2){const [p,q]=[...ptr.values()];ed.z=Math.min(ZMAX,Math.max(ZMIN,pinch.z*Math.hypot(p.x-q.x,p.y-q.y)/pinch.d));edRender();return}
+  const d=ed.drag;if(!d)return;let fx=d.fx+(e.clientX-d.x)/ed.W,fy=d.fy+(e.clientY-d.y)/ed.H;if(Math.abs(fx*ed.W)<8)fx=0;if(Math.abs(fy*ed.H)<8)fy=0;ed.fx=fx;ed.fy=fy;edRender()};
+edst.onpointerup=edst.onpointercancel=e=>{ptr.delete(e.pointerId);if(ptr.size<2)pinch=null;if(ptr.size===1){const [p]=[...ptr.values()];ed.drag={x:p.x,y:p.y,fx:ed.fx,fy:ed.fy}}else{ed.drag=null;edst.style.cursor=''}};
+edst.addEventListener('wheel',e=>{if(!ed.img)return;e.preventDefault();ed.z=Math.min(ZMAX,Math.max(ZMIN,ed.z*Math.exp(-e.deltaY*.0015)));edRender()},{passive:false});
+edst.onkeydown=e=>{const k={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];if(!k||!ed.img)return;e.preventDefault();const st=e.shiftKey?10:1;ed.fx+=k[0]*st/ed.W;ed.fy+=k[1]*st/ed.H;edRender()};
+window.addEventListener('resize',()=>{if(!$('#ed').classList.contains('hide')){edMeasure();edRender()}});
+const hq=(im,dw,dh)=>{let c=document.createElement('canvas'),w=im.naturalWidth,h=im.naturalHeight;c.width=w;c.height=h;c.getContext('2d').drawImage(im,0,0);
+  while(w/2>dw){const nw=Math.max(Math.round(dw),Math.floor(w/2)),nh=Math.max(Math.round(dh),Math.floor(h/2)),n=document.createElement('canvas');n.width=nw;n.height=nh;const x=n.getContext('2d');x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';x.drawImage(c,0,0,nw,nh);c=n;w=nw;h=nh}return c};
+$('#edok').onclick=e=>busy(e.target,async()=>{if(!ed.img)throw new Error('Choose a photo first.');
+  const OW=outW(),OH=Math.round(OW/ed.ar),k=OW/ed.W,s=ed.sf*ed.z*k,cv=document.createElement('canvas');cv.width=OW;cv.height=OH;const x=cv.getContext('2d');x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';
+  if(!$('#edtr').checked){x.fillStyle=$('#edbg').value;x.fillRect(0,0,OW,OH)}
+  const dw=ed.iw*s,dh=ed.ih*s,src=s<.5?hq(ed.img,dw,dh):ed.img;x.drawImage(src,OW/2+ed.fx*OW-dw/2,OH/2+ed.fy*OH-dh/2,dw,dh);
+  let blob=null;for(const q of [.96,.92,.86,.78,.7]){try{blob=await new Promise((ok,no)=>cv.toBlob(b=>b?ok(b):no(new Error('export')),'image/webp',q))}catch(err){throw new Error('This image blocks editing (browser security). Upload the file with “Upload file” instead.')}if(blob.size<=5*1024*1024)break}
+  if(blob.size>5*1024*1024)throw new Error('Result is larger than 5 MB. Zoom out or use a smaller frame.');
+  const ext=blob.type==='image/webp'?'webp':blob.type==='image/png'?'png':'jpg',name=`edit-${Date.now()}.${ext}`;
+  const{error}=await sb.storage.from('site').upload(name,blob,{contentType:blob.type,cacheControl:'31536000'});if(error)throw error;
+  $('#ed').classList.add('hide');ed.cb&&ed.cb(mUrl(name));toast('Image saved to your library. Remember to press Save on the item.','ok')});
+/* ---------- accounts ---------- */
+async function loadLinks(){const{data:ls,error}=await sb.from('social_links').select('*').order('sort');if(error)throw error;const box=$('#links');box.textContent='';if(!ls.length)box.append(el('p','','No links yet.'));
+  ls.forEach((l,i)=>{const r=el('div','lk');r.innerHTML='<label>Platform<input maxlength="40"></label><label>URL<input type="url" placeholder="https://"></label><label>Label (optional)<input maxlength="60"></label>';
+    const[p,u,lb]=r.querySelectorAll('input');p.value=l.platform;u.value=l.url;lb.value=l.label||'';
+    const a=el('div','acts'),cl=el('label');cl.style.cssText='display:flex;align-items:center;gap:6px;margin:0';const cb=el('input');cb.type='checkbox';cb.checked=l.enabled;cl.append(cb,'Visible');
+    const sv=el('button','btn p s','Save'),up=el('button','btn s','↑'),dn=el('button','btn s','↓'),del=el('button','btn s d','Delete');a.append(cl,sv,up,dn,del);
+    sv.onclick=()=>busy(sv,async()=>{const{error}=await sb.from('social_links').update({platform:p.value.trim(),url:u.value.trim(),label:lb.value.trim()||null,enabled:cb.checked}).eq('id',l.id);if(error)throw new Error('Not saved. The URL must start with https:// or mailto:');toast('Link saved.','ok')});
+    const mv=o=>()=>busy(o>0?dn:up,async()=>{const n=ls[i+o];if(!n)return;const x=await sb.from('social_links').update({sort:n.sort}).eq('id',l.id),y=await sb.from('social_links').update({sort:l.sort}).eq('id',n.id);if(x.error||y.error)throw new Error('Could not reorder.');await loadLinks()});
+    up.onclick=mv(-1);dn.onclick=mv(1);del.onclick=()=>{if(confirm('Delete this link?'))busy(del,async()=>{const{error}=await sb.from('social_links').delete().eq('id',l.id);if(error)throw error;await loadLinks();toast('Link deleted.','ok')})};
+    r.append(a);box.append(r)})}
+$('#addl').onclick=e=>busy(e.target,async()=>{const{data:last}=await sb.from('social_links').select('sort').order('sort',{ascending:false}).limit(1);
+  const{error}=await sb.from('social_links').insert({platform:'New link',url:'https://',enabled:false,sort:(last[0]?.sort??0)+1});if(error)throw error;await loadLinks();toast('Added. Fill it in, tick Visible, then Save.','ok')});
+/* ---------- projects ---------- */
+async function loadProjects(){const{data:ps,error}=await sb.from('projects').select('*').order('sort');if(error)throw new Error('Projects: '+error.message+' (run migration_4_projects.sql)');
+  const box=$('#projs');box.textContent='';if(!ps.length)box.append(el('p','','No projects yet. Add your first one, for example your academy.'));
+  ps.forEach((p,i)=>{const r=el('div','lk');r.innerHTML='<label>Title<input maxlength="100"></label><label>Website link<input type="url" placeholder="https://"></label><label>Category (groups the Projects page)<input maxlength="40" placeholder="Education, Products…"></label><label>Short description (shown on the card)<textarea rows="3" maxlength="400"></textarea></label><label>Full details: why I built it, why people use it (shown when the card is opened). Use ## Heading, **bold**, - list<textarea rows="9" maxlength="6000" placeholder="## Why I built this&#10;…&#10;&#10;## Why people use it"></textarea></label><label>Status<select><option value="live">Live</option><option value="building">In progress</option><option value="planned">Planned</option></select></label>';
+    const[t,u,c]=r.querySelectorAll('input'),[d,dd]=r.querySelectorAll('textarea'),st=r.querySelector('select');t.value=p.title;u.value=p.url||'';c.value=p.category||'';d.value=p.description||'';dd.value=p.details||'';st.value=p.status;let img=p.image_url||'';
+    const pv=el('div','prev'),im=el('img','sq');im.style.cssText='width:100%;height:auto;aspect-ratio:2/1;object-fit:contain;background:var(--pane)';im.alt='';const ib=el('div'),ip=el('button','btn s','Image'),ie=el('button','btn s','Edit / crop'),ir=el('button','btn s d','Remove');ib.append(ip,' ',ie,' ',ir);pv.append(im,ib);pv.style.cssText='flex-direction:column;align-items:stretch;gap:8px';
+    const setI=x=>{img=x||'';if(x)im.src=x;im.classList.toggle('hide',!x);ir.classList.toggle('hide',!x)};setI(img);ip.type=ir.type=ie.type='button';ip.onclick=()=>pick(setI);ie.onclick=()=>edOpen(img,setI,'2');ir.onclick=()=>setI('');
+    const a=el('div','acts'),mkc=(n,v)=>{const l=el('label');l.style.cssText='display:flex;align-items:center;gap:6px;margin:0';const b=el('input');b.type='checkbox';b.checked=v;l.append(b,n);a.append(l);return b};
+    const en=mkc('Visible',p.enabled),ft=mkc('Featured',p.featured);
+    const sv=el('button','btn p s','Save'),up=el('button','btn s','↑'),dn=el('button','btn s','↓'),del=el('button','btn s d','Delete');a.append(sv,up,dn,del);
+    sv.onclick=()=>busy(sv,async()=>{const{error}=await sb.from('projects').update({title:t.value.trim(),url:u.value.trim()||null,category:c.value.trim()||null,description:d.value.trim()||null,details:dd.value.trim()||null,status:st.value,image_url:img||null,enabled:en.checked,featured:ft.checked}).eq('id',p.id);if(error)throw new Error(/details/.test(error.message)?'Run migration_5_project_details.sql in Supabase first (adds the Full details field).':'Not saved. Title is required and the link must start with https://');toast('Project saved.','ok')});
+    const mv=o=>()=>busy(o>0?dn:up,async()=>{const n=ps[i+o];if(!n)return;const x=await sb.from('projects').update({sort:n.sort}).eq('id',p.id),y=await sb.from('projects').update({sort:p.sort}).eq('id',n.id);if(x.error||y.error)throw new Error('Could not reorder.');await loadProjects()});
+    up.onclick=mv(-1);dn.onclick=mv(1);del.onclick=()=>{if(confirm('Delete this project?'))busy(del,async()=>{const{error}=await sb.from('projects').delete().eq('id',p.id);if(error)throw error;await loadProjects();toast('Project deleted.','ok')})};
+    r.insertBefore(pv,r.children[3]);r.append(a);box.append(r)})}
+$('#addp').onclick=e=>busy(e.target,async()=>{const{data:last}=await sb.from('projects').select('sort').order('sort',{ascending:false}).limit(1);
+  const{error}=await sb.from('projects').insert({title:'New project',enabled:false,sort:(last[0]?.sort??0)+1});if(error)throw error;await loadProjects();toast('Added. Fill it in, tick Visible, then Save.','ok')});
+/* ---------- messages (Telegram-style) ---------- */
+let msgs=[],mf='all',mcur=null;
+function refreshCm(){sb.from('comments').select('id',{count:'exact',head:true}).eq('status','pending').then(({count,error})=>{const b=$('#nav [data-v=comments] .bd');if(!b)return;b.textContent=error?'':(count||'');b.classList.toggle('hide',error||!count)})}
+function refreshBadge(){refreshCm();sb.from('contact_messages').select('id',{count:'exact',head:true}).eq('is_read',false).then(({count})=>{const b=$('#nav [data-v=messages] .bd');b.textContent=count||'';b.classList.toggle('hide',!count)})}
+async function loadMsgs(){const{data:ms,error}=await sb.from('contact_messages').select('*').order('created_at',{ascending:false}).limit(200);if(error)throw error;msgs=ms;renderList();refreshBadge()}
+function renderList(){const box=$('#cl');box.textContent='';const L=msgs.filter(m=>mf==='all'||!m.is_read);if(!L.length)box.append(el('div','empty','No messages here.'));
+  L.forEach(m=>{const c=el('div','ci'+(mcur===m.id?' on':''));const t=el('div','t'),b=el('b',''),nm=el('span','',m.name);nm.style.cssText='color:var(--ink);font-weight:'+(m.is_read?500:700);b.append(nm,el('span','',new Date(m.created_at).toLocaleDateString([],{month:'short',day:'numeric'})));
+    t.append(b,el('div','',(m.subject?m.subject+': ':'')+m.message));c.append(av(m.name),t);if(!m.is_read)c.append(el('span','dot','●'));c.onclick=()=>openMsg(m);box.append(c)})}
+async function openMsg(m){mcur=m.id;$('#mchat').classList.add('open');
+  if(!m.is_read){const{error}=await sb.from('contact_messages').update({is_read:true}).eq('id',m.id);if(!error){m.is_read=true;refreshBadge()}}
+  renderList();const v=$('#cv');v.textContent='';const hd=el('div','hd'),w=el('div');w.append(el('b','',m.name),el('small','',m.email));hd.append(av(m.name),w);
+  const bub=el('div','bub');if(m.subject)bub.append(el('span','sj',m.subject));bub.append(document.createTextNode(m.message),el('time','',when(m.created_at)));
+  const a=el('div','acts'),re=el('a','btn p','Reply by email');re.href=`mailto:${m.email}?subject=${encodeURIComponent('Re: '+(m.subject||'your message'))}`;re.style.textDecoration='none';
+  const un=el('button','btn','Mark unread'),del=el('button','btn d','Delete');
+  un.onclick=()=>busy(un,async()=>{const{error}=await sb.from('contact_messages').update({is_read:false}).eq('id',m.id);if(error)throw error;m.is_read=false;renderList();refreshBadge();toast('Marked unread.','ok')});
+  del.onclick=()=>{if(confirm('Delete this message permanently?'))busy(del,async()=>{const{error}=await sb.from('contact_messages').delete().eq('id',m.id);if(error)throw error;mcur=null;v.textContent='';$('#mchat').classList.remove('open');await loadMsgs();toast('Message deleted.','ok')})};
+  a.append(re,un,del);v.append(hd,bub,a)}
+$$('.ctabs [data-f]').forEach(b=>b.onclick=()=>{mf=b.dataset.f;$$('.ctabs [data-f]').forEach(x=>x.classList.toggle('on',x===b));renderList()});
+$('#mback').onclick=()=>$('#mchat').classList.remove('open');
+/* ---------- comments ---------- */
+let cmf='pending';
+async function loadComments(){const{data:cs,error}=await sb.from('comments').select('id,name,email,body,status,created_at,posts(title)').order('created_at',{ascending:false}).limit(300);
+  if(error)throw new Error('Comments: '+error.message+' (run migration_7_comments.sql)');
+  const box=$('#cmlist');box.textContent='';const L=cs.filter(c=>cmf==='all'||c.status===cmf);
+  if(!L.length)box.append(el('p','',cmf==='pending'?'Nothing waiting. All caught up.':'No comments here.'));
+  L.forEach(c=>{const r=el('div','lk');r.style.marginBottom='12px';
+    const h=el('div');h.style.cssText='display:flex;gap:10px;align-items:center;margin-bottom:6px';const w=el('div');w.style.flex='1';const nm=el('b','',c.name);const sm=el('small','',(c.email?c.email+' · ':'')+when(c.created_at)+(c.posts?.title?' · on “'+c.posts.title+'”':''));sm.style.cssText='display:block;color:var(--mute)';w.append(nm,sm);h.append(av(c.name),w,el('span','chip'+(c.status==='approved'?' pub':''),c.status==='approved'?'approved':'waiting'));
+    const t=el('div','',c.body);t.style.cssText='white-space:pre-wrap;word-break:break-word;margin:8px 0 12px';
+    const a=el('div','acts');a.style.marginTop='0';
+    const ap=el('button','btn s'+(c.status==='approved'?'':' p'),c.status==='approved'?'Hide':'Approve');
+    ap.onclick=()=>busy(ap,async()=>{const{error}=await sb.from('comments').update({status:c.status==='approved'?'pending':'approved'}).eq('id',c.id);if(error)throw error;await loadComments();refreshCm();toast(c.status==='approved'?'Hidden from the post.':'Approved. It is now visible.','ok')});
+    const del=el('button','btn s d','Delete');del.onclick=()=>{if(confirm('Delete this comment permanently?'))busy(del,async()=>{const{error}=await sb.from('comments').delete().eq('id',c.id);if(error)throw error;await loadComments();refreshCm();toast('Comment deleted.','ok')})};
+    a.append(ap);if(c.email){const re=el('a','btn s','Reply by email');re.href='mailto:'+c.email+'?subject='+encodeURIComponent('Re: your comment');re.style.textDecoration='none';a.append(re)}a.append(del);
+    r.append(h,t,a);box.append(r)})}
+$$('[data-cf]').forEach(b=>b.onclick=()=>{cmf=b.dataset.cf;$$('[data-cf]').forEach(x=>x.classList.toggle('on',x===b));loadComments().catch(e=>toast(e.message,'err'))});
+/* ---------- posts ---------- */
+let cur=null;const slugify=t=>t.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,100);
+async function loadPosts(){const{data:ps,error}=await sb.from('posts').select('id,slug,title,status,featured,created_at').order('created_at',{ascending:false});
+  if(error)throw new Error('Posts: '+error.message+' (run migration_2_posts.sql)');const box=$('#plist');box.textContent='';if(!ps.length)box.append(el('div','empty','No posts yet.'));
+  ps.forEach(p=>{const c=el('div','ci'+(cur?.id===p.id?' on':'')),t=el('div','t'),b=el('b');b.append(el('span','',p.title));const s=el('span','chip'+(p.status==='published'?' pub':''),p.status);b.append(s);
+    t.append(b,el('div','','/'+p.slug));c.append(av(p.title),t);c.onclick=()=>editPost(p.id);box.append(c)})}
+let fp={x:50,y:50};
+function fpRender(){const u=$('#pcurl').value;$('#fpbox').classList.toggle('hide',!u);$$('#fpbox img').forEach(i=>{if(u)i.src=u;i.style.objectPosition=fp.x+'% '+fp.y+'%'});$('#fpx').value=fp.x;$('#fpy').value=fp.y;{const f=$('#pf').elements,c=$('#fr1 .fc');c.textContent=f.category.value.trim();c.style.display=c.textContent?'':'none';$('#fr1 .ft').textContent=f.ptitle.value.trim()||'Your post title'}}
+function setCover(u){$('#pcurl').value=u||'';const i=$('#pcv');if(u)i.src=u;i.classList.toggle('hide',!u);$('#pcrm').classList.toggle('hide',!u);fpRender()}
+const newCover=u=>{fp={x:50,y:50};setCover(u)};
+$('#pf').addEventListener('input',e=>{if(e.target.name==='ptitle'||e.target.name==='category')fpRender()});
+$('#fpx').oninput=e=>{fp.x=+e.target.value;fpRender()};$('#fpy').oninput=e=>{fp.y=+e.target.value;fpRender()};
+(()=>{const f=$('#fr1'),mv=e=>{const r=f.getBoundingClientRect();fp.x=Math.round(Math.min(100,Math.max(0,(e.clientX-r.left)/r.width*100)));fp.y=Math.round(Math.min(100,Math.max(0,(e.clientY-r.top)/r.height*100)));fpRender()};let d=false;f.onpointerdown=e=>{d=true;f.setPointerCapture(e.pointerId);mv(e)};f.onpointermove=e=>{if(d)mv(e)};f.onpointerup=f.onpointercancel=()=>d=false})();
+function fillPost(p){cur=p;const f=$('#pf').elements;f.ptitle.value=p?.title||'';f.slug.value=p?.slug||'';f.excerpt.value=p?.excerpt||'';f.body.value=p?.body||'';f.status.value=p?.status||'draft';f.featured.checked=!!p?.featured;f.category.value=p?.category||'';{const m=/^(\d{1,3})% (\d{1,3})%$/.exec(p?.cover_pos||'');fp=m?{x:+m[1],y:+m[2]}:{x:50,y:50}}setCover(p?.cover_url);
+  $('#pdel').classList.toggle('hide',!p);$('#pf').classList.remove('hide');$('#pempty').classList.add('hide');$('#wchat').classList.add('open')}
+async function editPost(id){const{data:p,error}=await sb.from('posts').select('*').eq('id',id).single();if(error)return toast(error.message,'err');fillPost(p);loadPosts().catch(()=>{})}
+$('#newp').onclick=()=>fillPost(null);$('#wback').onclick=()=>$('#wchat').classList.remove('open');
+$('#pcpick').onclick=()=>pick(newCover);$('#pcedit').onclick=()=>edOpen($('#pcurl').value,newCover,'1.5');$('#pcrm').onclick=()=>newCover('');
+$('#pf').onsubmit=e=>{e.preventDefault();busy(e.target.querySelector('.p'),async()=>{const f=e.target.elements,title=f.ptitle.value.trim(),slug=f.slug.value.trim()||slugify(title);
+  if(!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug))throw new Error('Address may only contain lowercase letters, numbers and hyphens.');
+  const status=f.status.value,now=new Date().toISOString();
+  const row={title,slug,excerpt:f.excerpt.value.trim()||null,body:f.body.value,status,featured:f.featured.checked,cover_url:$('#pcurl').value||null,category:f.category.value.trim()||null,cover_pos:$('#pcurl').value?fp.x+'% '+fp.y+'%':null,read_min:Math.max(1,Math.round(f.body.value.trim().split(/\s+/).length/200)),updated_at:now,published_at:status==='published'?(cur?.published_at||now):(cur?.published_at||null)};
+  const q=cur?sb.from('posts').update(row).eq('id',cur.id):sb.from('posts').insert(row);const{data:d,error}=await q.select().single();
+  if(error)throw new Error(error.code==='23505'?'That address is already used by another post.':/category|cover_pos|read_min/.test(error.message)?'Run migration_6_blog.sql in Supabase first (adds category and photo position).':error.message);fillPost(d);await loadPosts();toast(status==='published'?'Saved and published.':'Draft saved.','ok')})};
+$('#pdel').onclick=e=>{if(cur&&confirm('Delete this post permanently?'))busy(e.target,async()=>{const{error}=await sb.from('posts').delete().eq('id',cur.id);if(error)throw error;cur=null;$('#pf').classList.add('hide');$('#pempty').classList.remove('hide');$('#wchat').classList.remove('open');await loadPosts();toast('Post deleted.','ok')})};
+/* ---------- dashboard ---------- */
+async function loadDash(){const[p,l,m,f,pj]=await Promise.all([sb.from('posts').select('status'),sb.from('social_links').select('enabled'),sb.from('contact_messages').select('is_read'),listMedia().catch(()=>null),sb.from('projects').select('enabled')]);
+  const bad=[p,l,m].find(r=>r.error);$('#sys').textContent=bad?('Problem: '+bad.error.message):'Database connected. Everything you save is stored in Supabase.';if(bad)throw new Error(bad.error.message);
+  const S=[['Posts',p.data.length],['Published',p.data.filter(x=>x.status==='published').length],['Drafts',p.data.filter(x=>x.status!=='published').length],['Projects',pj.error?'–':pj.data.length],['Accounts shown',l.data.filter(x=>x.enabled).length],['Messages',m.data.length],['Unread',m.data.filter(x=>!x.is_read).length],['Photos',f?f.length:'–']];
+  const b=$('#stats');b.textContent='';S.forEach(([k,v])=>{const s=el('div','stat');s.append(el('b','',v),el('span','',k));b.append(s)})}
+/* ---------- Social Sharing & SEO (Cloudinary signed upload) ---------- */
+const SS_DEFAULT='assets/social-default.jpg';let ssFile=null,ssURL=null,ssDims=null;
+const ssT={fill:'c_fill,g_auto,w_1200,h_630,q_auto:good,f_jpg',fit:'c_pad,b_blurred:400:15,w_1200,h_630,q_auto:good,f_jpg'};
+const ssActive=()=>/^https?:\/\//.test(data.social_image_url||'')?data.social_image_url:'';
+function ssPrev(){const u=ssActive()||SS_DEFAULT,img=$('#ssc img');$('#ssc img').src=u;$('#scd').textContent=($('#ssw').value||location.host).replace(/^https?:\/\//,'').replace(/\/$/,'');
+  $('#sct').textContent=$('#sst').value||$('#ssn').value||'Hamza Muhammad';$('#scp').textContent=$('#ssd').value||'Educator, learner and builder.'}
+function ssRender(){const u=ssActive(),img=$('#ssa img');img.src=u||SS_DEFAULT;$('#ssu').value=u||new URL(SS_DEFAULT,location.href).href;
+  $('#ssb1').textContent=u?'Custom image':'Default image';$('#ssb2').textContent=(u?(data.social_image_w||1200)+' × '+(data.social_image_h||630):'1200 × 630');
+  $('#ssb3').textContent=u?'Source: Cloudinary':'Source: site default';$('#ssrs').classList.toggle('hide',!u);$('#sspl').firstChild.textContent=u?'Replace image':'Upload new image';
+  $('#ssa').classList.toggle('contain',u&&data.social_image_fit==='fit');ssPrev()}
+async function loadSocial(){if(!Object.keys(data).length)await loadSettings();
+  $('#sst').value=data.seo_title||'';$('#ssd').value=data.seo_description||'';$('#ssn').value=data.seo_site_name||'';$('#ssx').value=data.seo_twitter||'';$('#ssw').value=data.seo_site_url||'';ssRender()}
+function ssCancel(){ssFile=null;if(ssURL)URL.revokeObjectURL(ssURL);ssURL=null;ssDims=null;$('#ssf').value='';$('#sspend').classList.add('hide')}
+$('#ssf').onchange=e=>{const f=e.target.files[0];if(!f)return;
+  if(!/^image\/(jpeg|png|webp)$/.test(f.type))return toast('Please choose a JPG, PNG or WebP image.','err');
+  if(f.size>8*1024*1024)return toast('That image is over 8 MB. Please choose a smaller one.','err');
+  if(ssURL)URL.revokeObjectURL(ssURL);ssFile=f;ssURL=URL.createObjectURL(f);const i=new Image();
+  i.onload=()=>{ssDims={w:i.naturalWidth,h:i.naturalHeight};$('#ssp img').src=ssURL;$('#ssp1').textContent=i.naturalWidth+' × '+i.naturalHeight;$('#ssp2').textContent=(f.size/1048576).toFixed(2)+' MB';
+    const r=i.naturalWidth/i.naturalHeight,w=[];if(i.naturalWidth<1200||i.naturalHeight<630)w.push('The image is smaller than 1200 × 630, so it may look soft on large screens.');
+    if(Math.abs(r-1200/630)>.15)w.push('The shape is not 1.91 : 1. Choose “Show the whole picture” to avoid cropping.');
+    const pw=$('#sspw');pw.textContent=w.join(' ');pw.classList.toggle('hide',!w.length);
+    if(Math.abs(r-1200/630)>.15)$('#ssfit').value='fit';else $('#ssfit').value='fill';ssFit();$('#sspend').classList.remove('hide')};
+  i.onerror=()=>{ssCancel();toast('That file could not be read as an image.','err')};i.src=ssURL};
+function ssFit(){$('#ssp').classList.toggle('contain',$('#ssfit').value==='fit')}
+$('#ssfit').onchange=ssFit;$('#sscancel').onclick=ssCancel;
+$('#sscp').onclick=async()=>{try{await navigator.clipboard.writeText($('#ssu').value);toast('URL copied','ok')}catch(_){$('#ssu').select();toast('Press Ctrl+C to copy','ok')}};
+$('#sssave').onclick=e=>{if(!ssFile)return;
+  if(ssActive()&&!confirm('Replace the current social sharing image?\n\nNew shares will use the new picture. Platforms that already cached the old one may take a while (or a manual refresh) to update.'))return;
+  busy(e.currentTarget,async()=>{const{data:ss}=await sb.auth.getSession(),tok=ss&&ss.session&&ss.session.access_token;if(!tok)throw new Error('Please sign in again.');
+    const sr=await fetch('/api/cloudinary-sign',{method:'POST',headers:{Authorization:'Bearer '+tok}});let sj={};try{sj=await sr.json()}catch(_){}
+    if(!sr.ok)throw new Error(sj.error||'Could not get permission to upload ('+sr.status+'). Is the site deployed with the Cloudinary variables?');
+    const fd=new FormData();fd.append('file',ssFile);fd.append('api_key',sj.api_key);fd.append('signature',sj.signature);Object.keys(sj.params).forEach(k=>fd.append(k,sj.params[k]));
+    const ur=await fetch(sj.upload_url,{method:'POST',body:fd});let uj={};try{uj=await ur.json()}catch(_){}
+    if(!ur.ok||!uj.public_id)throw new Error((uj.error&&uj.error.message)||'Cloudinary rejected the upload.');
+    const fit=$('#ssfit').value,url='https://res.cloudinary.com/'+sj.cloud_name+'/image/upload/'+ssT[fit]+'/v'+uj.version+'/'+uj.public_id+'.jpg';
+    await saveSettings({social_image_url:url,social_image_id:uj.public_id,social_image_w:1200,social_image_h:630,social_image_fit:fit,social_image_at:new Date().toISOString()});
+    ssCancel();ssRender();toast('Saved. Your new sharing image is live.','ok')})};
+$('#ssrs').onclick=e=>{if(!confirm('Restore the default sharing image?\n\nThe custom image will no longer be used when your link is shared.'))return;
+  busy(e.currentTarget,async()=>{await saveSettings({social_image_url:'',social_image_id:'',social_image_w:'',social_image_h:'',social_image_fit:'',social_image_at:new Date().toISOString()});ssRender();toast('Default image restored.','ok')})};
+['#sst','#ssd','#ssn','#ssw'].forEach(i=>$(i).addEventListener('input',ssPrev));
+$('#ssseo').onclick=e=>busy(e.currentTarget,async()=>{const w=$('#ssw').value.trim(),x=$('#ssx').value.trim().replace(/^@/,'');
+  if(w&&!/^https?:\/\/[^\s]+$/.test(w))throw new Error('Site address must start with https://');if(x&&!/^\w{1,15}$/.test(x))throw new Error('The X handle can only use letters, numbers and _.');
+  await saveSettings({seo_title:$('#sst').value.trim(),seo_description:$('#ssd').value.trim(),seo_site_name:$('#ssn').value.trim(),seo_site_url:w.replace(/\/+$/,''),seo_twitter:x});toast('Saved. Shared links now use this text.','ok')});
+
+start();
+</script></body></html>

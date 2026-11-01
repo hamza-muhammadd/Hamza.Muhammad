@@ -1,0 +1,97 @@
+{
+ "outputDirectory": "public",
+ "functions": {
+  "api/page.js": {
+   "includeFiles": "templates/**"
+  }
+ },
+ "rewrites": [
+  {
+   "source": "/",
+   "destination": "/api/page?__page=index"
+  },
+  {
+   "source": "/index.html",
+   "destination": "/api/page?__page=index"
+  },
+  {
+   "source": "/about.html",
+   "destination": "/api/page?__page=about"
+  },
+  {
+   "source": "/about",
+   "destination": "/api/page?__page=about"
+  },
+  {
+   "source": "/interests.html",
+   "destination": "/api/page?__page=interests"
+  },
+  {
+   "source": "/interests",
+   "destination": "/api/page?__page=interests"
+  },
+  {
+   "source": "/writing.html",
+   "destination": "/api/page?__page=writing"
+  },
+  {
+   "source": "/writing",
+   "destination": "/api/page?__page=writing"
+  },
+  {
+   "source": "/projects.html",
+   "destination": "/api/page?__page=projects"
+  },
+  {
+   "source": "/projects",
+   "destination": "/api/page?__page=projects"
+  },
+  {
+   "source": "/accounts.html",
+   "destination": "/api/page?__page=accounts"
+  },
+  {
+   "source": "/accounts",
+   "destination": "/api/page?__page=accounts"
+  },
+  {
+   "source": "/contact.html",
+   "destination": "/api/page?__page=contact"
+  },
+  {
+   "source": "/contact",
+   "destination": "/api/page?__page=contact"
+  },
+  {
+   "source": "/post.html",
+   "destination": "/api/page?__page=post"
+  },
+  {
+   "source": "/post",
+   "destination": "/api/page?__page=post"
+  }
+ ],
+ "headers": [
+  {
+   "source": "/(.*)",
+   "headers": [
+    {
+     "key": "X-Content-Type-Options",
+     "value": "nosniff"
+    },
+    {
+     "key": "X-Frame-Options",
+     "value": "DENY"
+    },
+    {
+     "key": "Referrer-Policy",
+     "value": "strict-origin-when-cross-origin"
+    },
+    {
+     "key": "Permissions-Policy",
+     "value": "camera=(), microphone=(), geolocation=()"
+    }
+   ]
+  }
+ ]
+}
