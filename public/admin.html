@@ -435,7 +435,7 @@ async function loadDash(){const[p,l,m,f,pj]=await Promise.all([sb.from('posts').
   const S=[['Posts',p.data.length],['Published',p.data.filter(x=>x.status==='published').length],['Drafts',p.data.filter(x=>x.status!=='published').length],['Projects',pj.error?'–':pj.data.length],['Accounts shown',l.data.filter(x=>x.enabled).length],['Messages',m.data.length],['Unread',m.data.filter(x=>!x.is_read).length],['Photos',f?f.length:'–']];
   const b=$('#stats');b.textContent='';S.forEach(([k,v])=>{const s=el('div','stat');s.append(el('b','',v),el('span','',k));b.append(s)})}
 /* ---------- Social Sharing & SEO (Cloudinary signed upload) ---------- */
-const SS_DEFAULT='assets/social-hero-3.jpg';let ssFile=null,ssURL=null,ssDims=null,ssBlob=null,ssImg=null;
+const SS_DEFAULT='assets/social-hero-4.jpg';let ssFile=null,ssURL=null,ssDims=null,ssBlob=null,ssImg=null;
 const ssT={fill:'c_fill,g_auto,w_1200,h_630,q_auto:good,f_jpg',fit:'c_pad,b_blurred:400:15,w_1200,h_630,q_auto:good,f_jpg'};
 const ssActive=()=>/^https?:\/\//.test(data.social_image_url||'')?data.social_image_url:'';
 function ssPrev(){const u=ssActive()||SS_DEFAULT,img=$('#ssc img');$('#ssc img').src=u;$('#scd').textContent=($('#ssw').value||location.host).replace(/^https?:\/\//,'').replace(/\/$/,'');
@@ -447,13 +447,13 @@ function ssRender(){const u=ssActive(),img=$('#ssa img');img.src=u||SS_DEFAULT;$
 async function loadSocial(){if(!Object.keys(data).length)await loadSettings();
   $('#sst').value=data.seo_title||'';$('#ssd').value=data.seo_description||'';$('#ssn').value=data.seo_site_name||'';$('#ssx').value=data.seo_twitter||'';$('#ssw').value=data.seo_site_url||'';ssRender()}
 function ssCancel(){ssFile=null;ssBlob=null;ssImg=null;if(ssURL)URL.revokeObjectURL(ssURL);ssURL=null;ssDims=null;$('#ssf').value='';$('#sspend').classList.add('hide')}
-/* Always prepare exactly what gets shared: 1200 x 630 JPEG, under 290 KB (WhatsApp ignores bigger pictures) */
+/* Always prepare exactly what gets shared: 1200 x 630 JPEG, under 100 KB (small files are shown as the big card most reliably) */
 async function ssProcess(img,fit){const W=1200,H=630,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';
   const iw=img.naturalWidth,ih=img.naturalHeight,cover=Math.max(W/iw,H/ih);
   if(fit==='fit'){const t=document.createElement('canvas');t.width=60;t.height=32;t.getContext('2d').drawImage(img,(iw-W/cover)/2,(ih-H/cover)/2,W/cover,H/cover,0,0,60,32);x.drawImage(t,0,0,W,H);x.fillStyle='rgba(255,255,255,.18)';x.fillRect(0,0,W,H);
     const k=Math.min(W/iw,H/ih),dw=iw*k,dh=ih*k;x.drawImage(img,(W-dw)/2,(H-dh)/2,dw,dh)}
   else{const sw=W/cover,sh=H/cover;x.drawImage(img,(iw-sw)/2,(ih-sh)/2,sw,sh,0,0,W,H)}
-  let blob=null;for(const q of [.92,.88,.84,.8,.74,.68,.6]){blob=await new Promise(r=>c.toBlob(r,'image/jpeg',q));if(blob&&blob.size<=290*1024)break}return blob}
+  let blob=null;for(const q of [.86,.8,.74,.68,.6,.52,.45]){blob=await new Promise(r=>c.toBlob(r,'image/jpeg',q));if(blob&&blob.size<=100*1024)break}return blob}
 async function ssRebuild(){if(!ssImg)return;ssBlob=await ssProcess(ssImg,$('#ssfit').value);if(ssURL)URL.revokeObjectURL(ssURL);ssURL=URL.createObjectURL(ssBlob);$('#ssp img').src=ssURL;$('#ssp2').textContent='Share size: 1200 × 630 · '+Math.round(ssBlob.size/1024)+' KB'}
 $('#ssf').onchange=e=>{const f=e.target.files[0];if(!f)return;
   if(!/^image\/(jpeg|png|webp)$/.test(f.type))return toast('Please choose a JPG, PNG or WebP image.','err');
