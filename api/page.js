@@ -41,7 +41,7 @@ function build(req, page, s, post) {
   const base = origin(req, s);
   const name = s.seo_site_name || s.name || 'Hamza Muhammad';
   let title = s.seo_title || name;
-  let desc = s.seo_description || s.tagline || 'Educator, learner and builder. Writing, projects and ideas.';
+  let desc = s.seo_description || s.tagline || 'Hamza Muhammad is an educator and lifelong learner exploring faith, education, and technology through writing and projects.';
   let img = /^https?:\/\//.test(s.social_image_url || '') ? s.social_image_url : base + '/assets/social-default.jpg';
   let canon = base + (page === 'index' ? '/' : '/' + page + '.html');
   let type = 'website';
@@ -54,6 +54,14 @@ function build(req, page, s, post) {
   } else if (page !== 'index') {
     const label = { about: 'About', interests: 'Interests', writing: 'Blog', projects: 'Projects', accounts: 'Accounts', contact: 'Contact', post: 'Post' }[page];
     title = label + ' · ' + name;
+    if (!s.seo_description) desc = {
+      about: 'The story, direction, and guiding values of Hamza Muhammad, an educator and lifelong learner.',
+      interests: 'Quranic studies, education, technology, and the other subjects Hamza Muhammad is exploring.',
+      writing: 'Reflections, notes, and lessons from learning and building, by Hamza Muhammad.',
+      projects: 'Academies, products, and websites that Hamza Muhammad is currently building.',
+      accounts: 'Where to find Hamza Muhammad online.',
+      contact: 'Get in touch with Hamza Muhammad about collaboration, education, or technology.'
+    }[page] || desc;
   }
   const w = s.social_image_url && !post ? (s.social_image_w || 1200) : 1200;
   const h = s.social_image_url && !post ? (s.social_image_h || 630) : 630;
