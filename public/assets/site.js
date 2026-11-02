@@ -44,19 +44,40 @@ async function posts(){const box=$('#posts'),lat=$('#latest');if(!box&&!lat)retu
   try{const all=await getPosts();
     if(!all.length){if(box)t.append(mk('p','','No blog posts yet. Check back soon.'));return}
     if(lat){const w=$('#latest-wrap');if(w)w.hidden=false;all.slice(0,3).forEach(p=>lat.append(pcard(p)));return}
-    const hi=Math.max(0,all.findIndex(p=>p.featured)),hero=all[hi],rest=all.filter((_,i)=>i!==hi),side=rest.slice(0,4),more=rest.slice(4);
-    const top=mk('div','btop'),h=mk('a','bhero rv');h.href=phref(hero);h.append(pimg(hero,'bh-im'));
-    const ov=mk('div','bh-ov'),hc=pcat(hero);if(hc)ov.append(hc);ov.append(mk('h2','',clean(hero.title)),pmeta(hero));h.append(ov);top.append(h);
-    if(side.length){const sd=mk('aside','bside');sd.append(mk('h2','','Latest post'));side.forEach(p=>{const a=mk('a','bl rv');a.href=phref(p);a.append(pimg(p,'bl-im'));const d=mk('div');d.append(mk('h3','',clean(p.title)),pmeta(p));a.append(d);sd.append(a)});top.append(sd)}
-    t.append(top);
-    if(more.length){const sec=mk('section','bmore'),hd=mk('div','bm-h');hd.append(mk('h2','','More posts'));
-      const cats=[...new Set(more.map(p=>p.category).filter(Boolean))];let cur='All',pg=1;const PER=6,grid=mk('div','bgrid'),pager=mk('nav','pager');pager.setAttribute('aria-label','Pages');
-      const draw=()=>{const L=more.filter(p=>cur==='All'||p.category===cur),N=Math.max(1,Math.ceil(L.length/PER));pg=Math.min(pg,N);grid.textContent='';L.slice((pg-1)*PER,pg*PER).forEach(p=>{const c=pcard(p);c.classList.add('in');grid.append(c)});
+    const ck=x=>(x||'').trim().toLowerCase(),cm=new Map();
+    all.forEach(p=>{const k=ck(p.category);if(!k)return;const o=cm.get(k)||{name:p.category.trim(),n:0};o.n++;cm.set(k,o)});
+    const cats=[...cm.values()].sort((x,y)=>y.n-x.n||x.name.localeCompare(y.name));
+    const PER=6;
+    const list=(items,after)=>{const sec=mk('section','bmore'),grid=mk('div','bgrid'),pager=mk('nav','pager');pager.setAttribute('aria-label','Pages');let pg=1;
+      const draw=()=>{const N=Math.max(1,Math.ceil(items.length/PER));pg=Math.min(pg,N);grid.textContent='';items.slice((pg-1)*PER,pg*PER).forEach(p=>{const c=pcard(p);c.classList.add('in');grid.append(c)});
         pager.textContent='';pager.hidden=N<2;const go=n=>{pg=n;draw();sec.scrollIntoView({behavior:'smooth',block:'start'})};
         const ar=(l,n,d)=>{const b=mk('button','pg-a',l);b.type='button';b.disabled=d;b.setAttribute('aria-label',n<pg?'Previous page':'Next page');b.onclick=()=>go(n);return b};
         pager.append(ar('←',pg-1,pg<2));const nums=mk('div','pg-n');for(let i=1;i<=N;i++){const b=mk('button',i===pg?'on':'',String(i));b.type='button';b.onclick=()=>go(i);if(i===pg)b.setAttribute('aria-current','page');nums.append(b)}pager.append(nums,ar('→',pg+1,pg>=N))};
-      if(cats.length){const fl=mk('div','flt');['All',...cats].forEach((k,n)=>{const b=mk('button',n?'':'on',k);b.type='button';b.onclick=()=>{cur=k;pg=1;fl.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));draw()};fl.append(b)});hd.append(fl)}
-      sec.append(hd,grid,pager);t.append(sec);draw()}
+      if(after)sec.append(after);sec.append(grid,pager);draw();return sec};
+    const view=mk('div','bview');let bar=null;
+    const show=(cur,push)=>{
+      const k=ck(cur),hit=k&&cm.get(k);cur=hit?hit.name:'All';
+      if(bar)bar.querySelectorAll('button').forEach(x=>{const on=x.dataset.k===(hit?k:'');x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)});
+      if(push){const u=location.pathname+(hit?'?cat='+encodeURIComponent(hit.name):'');if(u!==location.pathname+location.search)history.pushState({cat:cur},'',u)}
+      view.textContent='';
+      if(hit){const items=all.filter(p=>ck(p.category)===k),hd=mk('div','chead');
+        const l=mk('div');l.append(mk('p','eyebrow','Category'),mk('h2','',hit.name),mk('p','cc',items.length+(items.length===1?' post':' posts')));
+        const back=mk('button','btn','← All posts');back.type='button';back.onclick=()=>show('All',true);hd.append(l,back);
+        view.append(hd,list(items));document.title=hit.name+' · Blog'}
+      else{
+        const hi=Math.max(0,all.findIndex(p=>p.featured)),hero=all[hi],rest=all.filter((_,i)=>i!==hi),side=rest.slice(0,4),more=rest.slice(4);
+        const top=mk('div','btop'),h=mk('a','bhero rv');h.href=phref(hero);h.append(pimg(hero,'bh-im'));
+        const ov=mk('div','bh-ov'),hc=pcat(hero);if(hc)ov.append(hc);ov.append(mk('h2','',clean(hero.title)),pmeta(hero));h.append(ov);top.append(h);
+        if(side.length){const sd=mk('aside','bside');sd.append(mk('h2','','Latest post'));side.forEach(p=>{const a=mk('a','bl rv');a.href=phref(p);a.append(pimg(p,'bl-im'));const d=mk('div');d.append(mk('h3','',clean(p.title)),pmeta(p));a.append(d);sd.append(a)});top.append(sd)}
+        view.append(top);
+        if(more.length){const hd=mk('div','bm-h');hd.append(mk('h2','','More posts'));view.append(list(more,hd))}}
+    };
+    if(cats.length){bar=mk('div','flt cbar');bar.setAttribute('role','group');bar.setAttribute('aria-label','Blog categories');
+      const mkb=(label,key,n)=>{const b=mk('button','',label);b.type='button';b.dataset.k=key;if(n!=null)b.append(mk('em','',String(n)));b.onclick=()=>{show(key?label:'All',true);bar.scrollIntoView({behavior:'smooth',block:'nearest'})};return b};
+      bar.append(mkb('All','',all.length));cats.forEach(c=>bar.append(mkb(c.name,ck(c.name),c.n)));t.append(bar)}
+    t.append(view);
+    show(new URLSearchParams(location.search).get('cat')||'All',false);
+    addEventListener('popstate',()=>show(new URLSearchParams(location.search).get('cat')||'All',false));
   }catch(e){if(box)t.append(mk('p','err','Could not load posts right now.'))}}
 function shareBar(p,site){const url=location.origin+location.pathname+'?p='+encodeURIComponent(p.slug),ttl=clean(p.title),txt=ttl+' · '+site,w=mk('section','share');w.append(mk('h2','','Share this post'));
   const row=mk('div','sh-row');const add=(label,fn,href)=>{const e=href?mk('a','sh-b',label):mk('button','sh-b',label);if(href){e.href=href;e.target='_blank';e.rel='noopener noreferrer'}else{e.type='button';e.onclick=()=>fn(e)}row.append(e);return e};
@@ -87,7 +108,7 @@ async function article(name){const el=$('#article');if(!el)return;
   const slug=new URLSearchParams(location.search).get('p')||'';if(!C.url||!/^[a-z0-9-]+$/.test(slug))return nf();
   try{const r=await get('posts?select=*&status=eq.published&slug=eq.'+slug);if(!r[0])return nf();const p=r[0];
     document.title=p.title+' · '+name;const m=$('meta[name=description]');if(m)m.content=p.excerpt||p.title;
-    const bk=mk('a','back','← Back to blog');bk.href='writing.html';el.append(bk);const c=pcat(p);if(c)el.append(c);
+    const bk=mk('a','back','← Back to blog');bk.href='writing.html';el.append(bk);const c=pcat(p);if(c){const l=mk('a','pcat');l.href='writing.html?cat='+encodeURIComponent(p.category);l.title='More in '+p.category;l.append(mk('i'),document.createTextNode(p.category));el.append(l)}
     el.append(mk('h1','',clean(p.title)),pmeta(p));
     if(/^https?:\/\//.test(p.cover_url||'')){const w=pimg(p,'a-cover');el.append(w)}
     const b=mk('div','md');md(p.body,b);el.append(b);try{el.append(shareBar(p,name));await comments(p,el)}catch(_){}}catch(e){nf()}}

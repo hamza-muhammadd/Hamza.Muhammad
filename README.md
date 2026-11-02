@@ -72,3 +72,7 @@ After changing it, refresh the platform caches: Facebook Sharing Debugger (Scrap
 ## Admin sidebar on phones
 
 On screens up to 820 px the sidebar slides in from the menu button, closes when you pick a section, tap the dark area, or press Escape. (It used a body class that collided with the sidebar class, so it only worked after rotating the phone; now fixed.)
+
+## Blog categories
+
+Set a category on each post (Admin > Blog > Category; Education, Technology, Faith… or your own). The blog shows a chip bar with counts. Picking a category shows every post of that category in the same blog layout; the address becomes `writing.html?cat=Education` so it can be shared, and Back works. Open a post and tap its category chip to see more from that category. Categories are matched ignoring capital letters.

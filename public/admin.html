@@ -145,7 +145,7 @@ textarea{resize:none!important;overflow-y:auto}
 <label>Title<input name="ptitle" maxlength="200" required></label>
 <label>Address (letters, numbers, hyphens. Leave blank for auto)<input name="slug" maxlength="120"></label>
 <label>Short summary<textarea name="excerpt" rows="2" maxlength="400"></textarea></label>
-<label>Category (shows as a chip, groups the blog)<input name="category" maxlength="40" list="catl" placeholder="Reflections, Learning, Faith…"></label><datalist id="catl"><option>Reflections</option><option>Learning</option><option>Faith</option><option>Technology</option><option>Journal</option></datalist>
+<label>Category (posts with the same category are grouped on the blog: Education, Technology…)<input name="category" maxlength="40" list="catl" placeholder="Reflections, Learning, Faith…"></label><datalist id="catl"><option>Education</option><option>Technology</option><option>Faith</option><option>Learning</option><option>Reflections</option><option>Journal</option></datalist>
 <div class="prev"><img class="sq hide" id="pcv" alt=""><div><button type="button" class="btn s" id="pcpick">Cover: choose or upload</button> <button type="button" class="btn s" id="pcedit">Edit / crop</button> <button type="button" class="btn s d hide" id="pcrm">Remove</button></div></div><input type="hidden" id="pcurl">
 <div id="fpbox" class="hide"><div class="fp"><div class="fr" id="fr1" style="aspect-ratio:3/2"><img alt=""><div class="fov"><span class="fc"></span><b class="ft"></b></div></div><div class="fr" style="aspect-ratio:16/9"><img alt=""></div><div class="fr" style="aspect-ratio:1"><img alt=""></div></div>
 <div class="fpn"><span>Top post · 3:2</span><span>Card · 16:9</span><span>List · 1:1</span></div>
@@ -408,7 +408,8 @@ async function loadComments(){const{data:cs,error}=await sb.from('comments').sel
 $$('[data-cf]').forEach(b=>b.onclick=()=>{cmf=b.dataset.cf;$$('[data-cf]').forEach(x=>x.classList.toggle('on',x===b));loadComments().catch(e=>toast(e.message,'err'))});
 /* ---------- posts ---------- */
 let cur=null;const slugify=t=>t.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,100);
-async function loadPosts(){const{data:ps,error}=await sb.from('posts').select('id,slug,title,status,featured,created_at').order('created_at',{ascending:false});
+async function loadCats(){try{const{data}=await sb.from('posts').select('category');const set=new Map();['Education','Technology','Faith','Learning','Reflections','Journal'].forEach(c=>set.set(c.toLowerCase(),c));(data||[]).forEach(r=>{const c=(r.category||'').trim();if(c&&!set.has(c.toLowerCase()))set.set(c.toLowerCase(),c)});const dl=$('#catl');dl.textContent='';set.forEach(c=>{const o=document.createElement('option');o.value=c;dl.append(o)})}catch(_){}}
+async function loadPosts(){loadCats();const{data:ps,error}=await sb.from('posts').select('id,slug,title,status,featured,created_at').order('created_at',{ascending:false});
   if(error)throw new Error('Posts: '+error.message+' (run migration_2_posts.sql)');const box=$('#plist');box.textContent='';if(!ps.length)box.append(el('div','empty','No posts yet.'));
   ps.forEach(p=>{const c=el('div','ci'+(cur?.id===p.id?' on':'')),t=el('div','t'),b=el('b');b.append(el('span','',p.title));const s=el('span','chip'+(p.status==='published'?' pub':''),p.status);b.append(s);
     t.append(b,el('div','','/'+p.slug));c.append(av(p.title),t);c.onclick=()=>editPost(p.id);box.append(c)})}
