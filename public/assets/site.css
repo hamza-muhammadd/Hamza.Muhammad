@@ -662,3 +662,6 @@ nav a.cta.on{background:var(--ds-primary-bg)}
 @keyframes lin{from{opacity:0;transform:translate3d(0,60%,0) scale(.85)}to{opacity:1;transform:none}}
 @keyframes lout{to{opacity:0;transform:translate3d(0,-55%,0) scale(1.05)}}
 .gx .gxw i{will-change:transform,opacity}
+
+/* Fixed-size text boxes: no drag-to-resize handle anywhere (scrolls inside instead) */
+textarea{resize:none!important;overflow-y:auto}
