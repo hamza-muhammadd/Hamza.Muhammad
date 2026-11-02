@@ -54,7 +54,7 @@ async function posts(){const box=$('#posts'),lat=$('#latest');if(!box&&!lat)retu
         const ar=(l,n,d)=>{const b=mk('button','pg-a',l);b.type='button';b.disabled=d;b.setAttribute('aria-label',n<pg?'Previous page':'Next page');b.onclick=()=>go(n);return b};
         pager.append(ar('←',pg-1,pg<2));const nums=mk('div','pg-n');for(let i=1;i<=N;i++){const b=mk('button',i===pg?'on':'',String(i));b.type='button';b.onclick=()=>go(i);if(i===pg)b.setAttribute('aria-current','page');nums.append(b)}pager.append(nums,ar('→',pg+1,pg>=N))};
       if(after)sec.append(after);sec.append(grid,pager);draw();return sec};
-    const view=mk('div','bview');let bar=null;
+    const view=mk('div','bview');let bar=null,shown=false;
     const show=(cur,push)=>{
       const k=ck(cur),hit=k&&cm.get(k);cur=hit?hit.name:'All';
       if(bar)bar.querySelectorAll('button').forEach(x=>{const on=x.dataset.k===(hit?k:'');x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)});
@@ -71,6 +71,8 @@ async function posts(){const box=$('#posts'),lat=$('#latest');if(!box&&!lat)retu
         if(side.length){const sd=mk('aside','bside');sd.append(mk('h2','','Latest post'));side.forEach(p=>{const a=mk('a','bl rv');a.href=phref(p);a.append(pimg(p,'bl-im'));const d=mk('div');d.append(mk('h3','',clean(p.title)),pmeta(p));a.append(d);sd.append(a)});top.append(sd)}
         view.append(top);
         if(more.length){const hd=mk('div','bm-h');hd.append(mk('h2','','More posts'));view.append(list(more,hd))}}
+      /* the scroll-reveal observer only ran once at page load; later renders must be visible straight away */
+      if(shown)view.querySelectorAll('.rv').forEach(e=>e.classList.add('in','done'));shown=true;
     };
     if(cats.length){bar=mk('div','flt cbar');bar.setAttribute('role','group');bar.setAttribute('aria-label','Blog categories');
       const mkb=(label,key,n)=>{const b=mk('button','',label);b.type='button';b.dataset.k=key;if(n!=null)b.append(mk('em','',String(n)));b.onclick=()=>{show(key?label:'All',true);bar.scrollIntoView({behavior:'smooth',block:'nearest'})};return b};
