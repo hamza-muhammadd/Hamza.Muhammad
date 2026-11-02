@@ -6,8 +6,6 @@
 body{margin:0;font:400 1rem/1.75 Inter,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;color:var(--ink);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit}.wrap{max-width:1080px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
 :focus-visible{outline:2px solid var(--acc);outline-offset:3px}
-.prog{position:fixed;top:0;left:0;right:0;height:2px;background:var(--acc);transform-origin:0 50%;transform:scaleX(0);z-index:10;animation:prog linear both;animation-timeline:scroll()}
-@keyframes prog{to{transform:scaleX(1)}}
 .aur{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
 .aur i{position:absolute;border-radius:50%;filter:blur(90px);will-change:transform;animation:drift 26s ease-in-out infinite alternate}
 .aur i:nth-child(1){width:50vw;height:50vw;left:-12vw;top:-14vw;background:#fffdf6;opacity:.9}
@@ -678,3 +676,5 @@ a.pcat{text-decoration:none;color:inherit;transition:transform .25s,box-shadow .
 
 /* Phones only: show the 2 newest posts in "Latest from the blog" (desktop keeps 3) */
 @media(max-width:820px){#latest>.bcard:nth-child(n+3){display:none}}
+
+.prog{display:none!important}

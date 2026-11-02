@@ -189,7 +189,6 @@ async function boot(){
   $$('#socials').forEach(b=>ok.forEach(x=>{const a=mk('a','',x.platform);a.href=x.url;a.target='_blank';a.rel='noopener noreferrer';b.append(a)}));
   $$('#accounts').forEach(b=>{if(!ok.length)b.append(mk('p','','No accounts have been added yet.'));ok.forEach(x=>{const a=mk('a','card acct rv');a.href=x.url;a.target='_blank';a.rel='noopener noreferrer';const w=mk('div');w.append(mk('b','',x.platform),mk('span','',(x.label||x.url.replace(/^https?:\/\//,''))+' ↗'));a.append(mk('div','ic',x.platform[0].toUpperCase()),w);b.append(a)})});
   await Promise.all([posts(),article(d.name),projects()]);
-  const pr=mk('div','prog');pr.setAttribute('aria-hidden','true');document.body.append(pr);
   /* ---- guiding values (home) ---- */
   const hv=$('#hvalues');if(hv)L(d.values).slice(0,3).forEach((a,i)=>{const t=mk('div','tile t-val rv');t.dataset.a='pop';t.append(mk('span','num','0'+(i+1)),(()=>{const w=mk('div');w.append(mk('h3','',a[0]),mk('p','',a[1]||''));return w})());hv.append(t)});
   /* ---- interests marquee ---- */
