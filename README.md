@@ -68,3 +68,7 @@ Optional: `SUPABASE_URL`, `SUPABASE_ANON_KEY` (the public values from config.js 
 Admin > Social Sharing & SEO > Upload new image. The picture is resized in the browser to 1200 x 630 JPEG (under 300 KB), previewed exactly, and saved when you press Save. It goes to Cloudinary when the env vars are set, otherwise to the Supabase `site` storage bucket, so it works either way. The default image is `assets/social-hero.jpg` (the hero composition).
 
 After changing it, refresh the platform caches: Facebook Sharing Debugger (Scrape Again); WhatsApp usually updates after a while or when the link is shared with a new `?v=2`.
+
+## Admin sidebar on phones
+
+On screens up to 820 px the sidebar slides in from the menu button, closes when you pick a section, tap the dark area, or press Escape. (It used a body class that collided with the sidebar class, so it only worked after rotating the phone; now fixed.)
